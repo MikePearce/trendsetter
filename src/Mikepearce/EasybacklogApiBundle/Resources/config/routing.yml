@@ -1,0 +1,3 @@
+mikepearce_easybacklog_api_homepage:
+    pattern:  /hello/{name}
+    defaults: { _controller: MikepearceEasybacklogApiBundle:Default:index }
