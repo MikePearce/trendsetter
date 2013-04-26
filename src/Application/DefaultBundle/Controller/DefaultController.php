@@ -13,7 +13,7 @@ class DefaultController extends Controller
 
         return $this->render(
             'ApplicationDefaultBundle:Default:index.html.twig', 
-            array('stuff' => $easybacklogClient->getEndpoint())
+            array('stuff' => $easybacklogClient->getStuff())
         );
     }
 
