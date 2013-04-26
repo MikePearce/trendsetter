@@ -5,21 +5,16 @@ namespace Application\DefaultBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class DefaultController extends Controller
-{
-	public function indexAction($name)
+{    
+    public function indexAction()
     {
-        $twitterClient = $this->container->get('guzzle.twitter.client');
-        $status = $twitterClient->get('statuses/user_timeline.json')
-             ->send()->getBody();
- 
-        return $this->render('AppBundle:Default:index.html.twig', array(
-            'status' => $status
-        ));
-    }
-    
-    public function aindexAction()
-    {
+        // Grab the easybacklog service
+        $easybacklogClient = $this->get('Easybacklog');
 
-        return $this->render('ApplicationDefaultBundle:Default:index.html.twig');
+        return $this->render(
+            'ApplicationDefaultBundle:Default:index.html.twig', 
+            array('stuff' => $easybacklogClient->getStuff())
+        );
     }
+
 }
