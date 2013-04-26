@@ -9,7 +9,7 @@ class DefaultController extends Controller
     public function indexAction()
     {
         // Grab the easybacklog service
-        $easybacklogClient = $this->get('Easybacklog');
+        $easybacklogClient = $this->get('mikepearce_easybacklog_api');
 
         return $this->render(
             'ApplicationDefaultBundle:Default:index.html.twig', 
