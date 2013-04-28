@@ -80,27 +80,55 @@ class Client {
      * @param $path string - The path you want from the API.
      * @return boo
      */
-    public function refreshJson($path = null) {
+    private function refreshData($path = null) {
 
         // First, check and see if we NEED to refresh
 
         // Then refresh.
-
-        return true;
+        return false;
     }
 
     /**
      * Whatever it is, construct the endpoint and return the json
+     * @param $path string - The path of the call.
      **/
-    private function getJsonFromApi($some_path = null) {
-        return $this->guzzle->get($some_path)
-                            ->setAuth($this->userid, $this->api_key)
-                            ->send()
-                            ->getBody();
+    private function getDataFromApi($path = null) {
+
+        $data = $this->refreshData($path)
+        // If we need to refresh the data..
+        if (!$data) {
+            $data = $this->guzzle->get($path)
+                         ->setAuth($this->userid, $this->api_key)
+                         ->send()
+                         ->getBody();
+
+            // Haven't got this, let's save it.
+            $this->addDataToCache($path, $data);
+        }
+
+        return $data;
+        
+    }
+
+    /**
+     *
+     */
+    public function getThemes($include_associated_data = false) {
+        $path = 'api/backlogs/{backlogid}/themes.json';
+        if ($include_associated_data) $path .= '?include_associated_data=true';
+
+        $data = '';
+        foreach($this->backlogs AS $backlog_id) {
+            $data .= $this->getDataFromApi(str_replace('{backlogid}', $backlog_id, $path));    
+        }
+
+        return $data;
+        
+
     }
 
     public function getStuff() {
-        return $this->getJsonFromApi('api/backlogs/7869/themes.json?include_associated_data=true');
+        //return $this->getDataFromApi('api/backlogs/7869/themes.json?include_associated_data=true');
     }
     
 }
