@@ -21,7 +21,6 @@ class AppKernel extends Kernel
             new JMS\SecurityExtraBundle\JMSSecurityExtraBundle(),
             new Application\DefaultBundle\ApplicationDefaultBundle(),
             new Mikepearce\EasybacklogApiBundle\MikepearceEasybacklogApiBundle(),
-            new Application\TrendsetterBundle\ApplicationTrendsetterBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

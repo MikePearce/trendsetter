@@ -1,7 +1,0 @@
-parameters:
-#    application_trendsetter.example.class: Application\TrendsetterBundle\Example
-
-services:
-#    application_trendsetter.example:
-#        class: %application_trendsetter.example.class%
-#        arguments: [@service_id, "plain_value", %parameter%]
