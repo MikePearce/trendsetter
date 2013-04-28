@@ -92,9 +92,10 @@ class Client {
      * Whatever it is, construct the endpoint and return the json
      * @param $path string - The path of the call.
      **/
-    private function getDataFromApi($path = null) {
+    private function getDataApiData($path = null) {
 
-        $data = $this->refreshData($path)
+        $data = $this->refreshData($path);
+
         // If we need to refresh the data..
         if (!$data) {
             $data = $this->guzzle->get($path)
@@ -111,7 +112,17 @@ class Client {
     }
 
     /**
-     *
+     * Add data to the cache (either a file, or maybe mongo)
+     * @param $key string - This will be the path, used as the key
+     * @param $json string -
+     * @return void
+     **/
+    private function addDataToCache($key, $json) {
+
+    }
+
+    /**
+     * @param $include_associated_data boo - 
      */
     public function getThemes($include_associated_data = false) {
         $path = 'api/backlogs/{backlogid}/themes.json';
@@ -119,7 +130,7 @@ class Client {
 
         $data = '';
         foreach($this->backlogs AS $backlog_id) {
-            $data .= $this->getDataFromApi(str_replace('{backlogid}', $backlog_id, $path));    
+            $data .= $this->getDataApiData(str_replace('{backlogid}', $backlog_id, $path));    
         }
 
         return $data;
@@ -127,8 +138,28 @@ class Client {
 
     }
 
-    public function getStuff() {
-        //return $this->getDataFromApi('api/backlogs/7869/themes.json?include_associated_data=true');
+    /**
+     * Pull all the stories from a theme (or all themes)
+     * @return array
+     **/
+    public function getStoriesFromTheme() {
+        $themes = json_decode($this->getThemes(true), true);
+        
+        $stories = array();
+        foreach ($themes AS $theme) {
+
+            if (is_array($theme['stories'])) {
+                $stories = array_merge($stories, $theme['stories']);    
+            }
+        }
+
+        return $stories;
+    }
+
+    
+
+    public function getStoriesFromSprint() {
+
     }
     
 }
