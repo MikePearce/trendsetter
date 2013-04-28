@@ -1,0 +1,33 @@
+{% extends 'ApplicationDefaultBundle::layout.html.twig' %}
+ {% block body %}
+ <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+<script type="text/javascript">
+      google.load('visualization', '1', {packages: ['corechart']});
+    </script>
+    <script type="text/javascript">
+      function drawVisualization() {
+        // Some raw data (not necessarily accurate)
+        var data = google.visualization.arrayToDataTable([
+          ['Month', 'Size: 1', 'Size: 2', 'Size: 3', 'Size: 5', 'Size: 8', 'Size: 13', 'Size: 20'],
+          {{chart_data|raw}}
+        ]);
+
+
+        var options = {
+          title : 'Monthly spread of story points: all teams',
+          vAxis: {title: "No of instances"},
+          hAxis: {title: "Year/Month"},
+          seriesType: "bars",
+          //series: {5: {type: "line"}}
+        };
+
+        var chart = new google.visualization.ComboChart(document.getElementById('chart_div'));
+        chart.draw(data, options);
+      }
+      setTimeout(google.setOnLoadCallback(drawVisualization), 2000);
+
+    </script>
+     <h1>Estimates</h1>
+      <p>What's going on with the estimates mate?</p>
+      <div id="chart_div" style="width: 900px; height: 500px;"></div>
+ {% endblock %}
