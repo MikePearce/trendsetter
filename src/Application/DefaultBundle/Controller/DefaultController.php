@@ -3,7 +3,7 @@
 namespace Application\DefaultBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Application\TrendsetterBundle\Lib\Estimates;
+use Application\DefaultBundle\Lib\Estimates;
 
 class DefaultController extends Controller
 {    
