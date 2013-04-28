@@ -91,6 +91,7 @@ class Client {
     /**
      * Whatever it is, construct the endpoint and return the json
      * @param $path string - The path of the call.
+     * @return array - The Json as data
      **/
     private function getDataApiData($path = null) {
 
@@ -107,7 +108,7 @@ class Client {
             $this->addDataToCache($path, $data);
         }
 
-        return $data;
+        return json_decode($data, true);
         
     }
 
@@ -128,14 +129,14 @@ class Client {
         $path = 'api/backlogs/{backlogid}/themes.json';
         if ($include_associated_data) $path .= '?include_associated_data=true';
 
-        $data = '';
+        $data = array();
         foreach($this->backlogs AS $backlog_id) {
-            $data .= $this->getDataApiData(str_replace('{backlogid}', $backlog_id, $path));    
+            $data = array_merge($data, $this->getDataApiData(str_replace('{backlogid}', $backlog_id, $path)));
+            
         }
-
+        
         return $data;
         
-
     }
 
     /**
@@ -143,10 +144,9 @@ class Client {
      * @return array
      **/
     public function getStoriesFromTheme() {
-        $themes = json_decode($this->getThemes(true), true);
         
         $stories = array();
-        foreach ($themes AS $theme) {
+        foreach ($this->getThemes(true) AS $theme) {
 
             if (is_array($theme['stories'])) {
                 $stories = array_merge($stories, $theme['stories']);    
