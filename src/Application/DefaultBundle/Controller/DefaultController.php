@@ -10,6 +10,8 @@ class DefaultController extends Controller
     {
         // Grab the easybacklog service
         $easybacklogClient = $this->get('mikepearce_easybacklog_api');
+        $easybacklogClient->setAccountId('477')
+                          ->setBacklog(array(9248,7869,9555));
 
         return $this->render(
             'ApplicationDefaultBundle:Default:index.html.twig', 
