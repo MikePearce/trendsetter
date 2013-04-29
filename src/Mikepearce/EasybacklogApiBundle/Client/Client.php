@@ -76,24 +76,18 @@ class Client {
     }
 
     /**
-     * @return string - your uRL endpoint
+     * @param $path string - the URL endpoint
+     * @return string - json
      **/
-    public function getEndpoint() {
-        return $this->guzzle->getBaseUrl();
-    }
+    public function getJsonFromApi($path) {
+        print 'GETTING JSON';
+        $json =  $this->guzzle->get($path)
+                              ->setAuth($this->userid, $this->api_key)
+                              ->send()
+                              ->getBody();  
 
-    /**
-     * Get the specified JSON from the api
-     * @param $path string - The path you want from the API.
-     * @return boo
-     */
-    private function refreshData($path = null) {
-
-        // Pull the 
-
-
-        // Then refresh.
-        return false;
+        $this->addDataToCache(md5($path), $json);
+        return $json;
     }
 
     /**
@@ -103,20 +97,23 @@ class Client {
      **/
     private function getDataApiData($path = null) {
 
-        $data = $this->refreshData($path);
+        // No json, get some
+        $json = $this->memcached->get(md5($path));
+        if ($json == false) {
+            var_dump($json);
+            $json =  $this->getJsonFromApi($path);
+        }
+        else {
 
-        // If we need to refresh the data..
-        if (!$data) {
-            $data = $this->guzzle->get($path)
-                         ->setAuth($this->userid, $this->api_key)
-                         ->send()
-                         ->getBody();
+            $data = json_decode($json, true);
 
-            // Haven't got this, let's save it.
-            $this->addDataToCache($path, $data);
+            if ($data['date'] <= strtotime('-1 minute')) {
+                $json =  $this->getJsonFromApi($path);
+            }
+    
         }
 
-        return json_decode($data, true);
+        return json_decode($json, true);
         
     }
 
@@ -135,7 +132,7 @@ class Client {
 
         // Then, add it to memcache
         
-        //$this->memcached->set($key, $json);
+        $this->memcached->set($key, $json);
     }
 
     /**
