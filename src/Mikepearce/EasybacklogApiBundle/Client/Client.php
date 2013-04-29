@@ -80,7 +80,7 @@ class Client {
      * @return string - json
      **/
     public function getJsonFromApi($path) {
-        print 'GETTING JSON';
+        
         $json =  $this->guzzle->get($path)
                               ->setAuth($this->userid, $this->api_key)
                               ->send()
