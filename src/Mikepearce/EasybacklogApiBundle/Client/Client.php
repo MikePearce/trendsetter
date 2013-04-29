@@ -34,16 +34,18 @@ class Client {
 
 
     /**
+     * @param $memcached memcache - DI injected
      * @param $guzzle guzzle - DI injected $guzzle
      * @param $api_key string - Your easybacklog.com API key
      * @param $userid int - your user id
      * @return void
      **/
-    public function __construct($guzzle, $api_key, $userid) {
+    public function __construct($memcached, $guzzle, $api_key, $userid) {
         // Set it
         $this->guzzle       = $guzzle;
         $this->api_key      = $api_key;
         $this->userid       = $userid;
+        $this->memcached    = $memcached;
     }
 
     /**
@@ -82,7 +84,8 @@ class Client {
      */
     private function refreshData($path = null) {
 
-        // First, check and see if we NEED to refresh
+        // Pull the 
+
 
         // Then refresh.
         return false;
@@ -120,6 +123,14 @@ class Client {
      **/
     private function addDataToCache($key, $json) {
 
+        // First, add a timestamp
+        $data = json_decode($json, true);
+        $data['date'] = time();
+        $json = json_encode($data);
+
+        // Then, add it to memcache
+        
+        $this->memcached->set($key, $json);
     }
 
     /**
