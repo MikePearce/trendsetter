@@ -32,6 +32,11 @@ class Client {
      **/
     public $backlogs;
 
+    /**
+     * Memcached client
+     **/
+    private $memcached;
+
 
     /**
      * @param $memcached memcache - DI injected
@@ -41,7 +46,7 @@ class Client {
      * @return void
      **/
     public function __construct($memcached, $guzzle, $api_key, $userid) {
-        // Set it
+        
         $this->guzzle       = $guzzle;
         $this->api_key      = $api_key;
         $this->userid       = $userid;
@@ -130,7 +135,7 @@ class Client {
 
         // Then, add it to memcache
         
-        $this->memcached->set($key, $json);
+        //$this->memcached->set($key, $json);
     }
 
     /**
