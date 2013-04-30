@@ -4,3 +4,6 @@ application_default_homepage:
 application_default_estimates:
     pattern:  /estimates
     defaults: { _controller: ApplicationDefaultBundle:Estimates:index }
+application_default_estimates_data:
+    pattern:  /estimates/data
+    defaults: { _controller: ApplicationDefaultBundle:Estimates:data }    
