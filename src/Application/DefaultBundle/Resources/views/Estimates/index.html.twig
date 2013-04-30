@@ -9,7 +9,17 @@
         // Some raw data (not necessarily accurate)
         var data = google.visualization.arrayToDataTable([
           ['Month', 'Size: 1', 'Size: 2', 'Size: 3', 'Size: 5', 'Size: 8', 'Size: 13', 'Size: 20'],
-          {{chart_data|raw}}
+          
+        {% for year, month in chart_data %}
+          {% for month_no, estimates in month %}
+            ['{{year}}/{{month_no}}', 
+              {% for i in [1, 2, 3, 5, 8, 13, 20]  %}
+                {{ (estimates[i] is defined) ? estimates[i] : 0 }},
+              {% endfor %}
+            ],
+          {% endfor %}
+        {% endfor %}
+          
         ]);
 
 

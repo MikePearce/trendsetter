@@ -100,7 +100,6 @@ class Client {
         // No json, get some
         $json = $this->memcached->get(md5($path));
         if ($json == false) {
-            var_dump($json);
             $json =  $this->getJsonFromApi($path);
         }
         else {
