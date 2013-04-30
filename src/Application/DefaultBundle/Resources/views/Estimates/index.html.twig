@@ -1,7 +1,10 @@
 {% extends 'ApplicationDefaultBundle::layout.html.twig' %}
  {% block body %}
  <script type="text/javascript" src="https://www.google.com/jsapi"></script>
- <script type="text/javascript" src="/js/estimates.js"></script>
+ {% javascripts '@ApplicationDefaultBundle/Resources/public/js/estimates.js' %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+  {% endjavascripts %}
+
 
   <h1>Estimates</h1>
   <p>What's going on with the estimates mate?</p>
