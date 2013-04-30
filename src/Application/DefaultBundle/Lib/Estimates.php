@@ -5,6 +5,8 @@ namespace Application\DefaultBundle\Lib;
 class Estimates {
     /**
      * Return all the aggregated estimate data.
+     * @param $stories array - All the stories
+     * @return array
      **/
     public function getEstimateDataByMonth($stories) {
 

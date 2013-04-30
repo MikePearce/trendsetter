@@ -23,21 +23,9 @@ class EstimatesController extends Controller
             $easybacklogClient->getStoriesFromTheme()
         );
 
-        $chart_data = '';
-
-        foreach($estimate_data AS $year => $month) {
-            foreach ($month AS $monthNo => $estimates) {
-              $chart_data .= "['". $year ."/".$monthNo."',"; 
-              foreach (array(0, 1, 3, 5, 8, 13, 20) AS $est){
-                  $chart_data .= (isset($estimates[$est]) ? $estimates[$est] : 0) .",";
-              }
-              $chart_data .= "],\n";
-            }
-        }
-
         return $this->render(
             'ApplicationDefaultBundle:Estimates:index.html.twig', 
-            array('stuff' => 'stuff', 'chart_data' => $chart_data)
+            array('stuff' => 'stuff', 'chart_data' => $estimate_data)
         );
     }
 
