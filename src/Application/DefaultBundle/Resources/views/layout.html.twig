@@ -47,10 +47,10 @@
           <a class="brand" href="#">Trendsetter!</a>
           <div class="nav-collapse collapse">
             <ul class="nav">
-              <li class="active"><a href="/">Home</a></li>
-              <li><a href="/estimates">Estimates</a></li>
-              <li><a href="#contact">Sprints</a></li>
-              <li><a href="#contact">Stories</a></li>
+              <li{% if app.request.get('_route') == 'application_default_homepage' %} class="active"{% endif %}><a href="/">Home</a></li>
+              <li{% if app.request.get('_route') == 'application_default_estimates' %} class="active"{% endif %}><a href="/estimates">Estimates</a></li>
+              <li{% if app.request.get('_route') == 'application_default_sprints' %} class="active"{% endif %}><a href="/sprints">Sprints</a></li>
+              <li{% if app.request.get('_route') == 'application_default_stories' %} class="active"{% endif %}><a href="/stories">Stories</a></li>
             </ul>
           </div><!--/.nav-collapse -->
         </div>
