@@ -1,9 +1,19 @@
 application_default_homepage:
     pattern:  /
     defaults: { _controller: ApplicationDefaultBundle:Default:index }
+
 application_default_estimates:
     pattern:  /estimates
     defaults: { _controller: ApplicationDefaultBundle:Estimates:index }
+
 application_default_estimates_data:
     pattern:  /estimates/data/{type}
-    defaults: { _controller: ApplicationDefaultBundle:Estimates:data }    
+    defaults: { _controller: ApplicationDefaultBundle:Estimates:data }
+
+application_default_stories:
+    pattern:  /stories
+    defaults: { _controller: ApplicationDefaultBundle:Stories:index }
+
+application_default_stories_data:
+    pattern:  /stories/data/{type}
+    defaults: { _controller: ApplicationDefaultBundle:Stories:data }

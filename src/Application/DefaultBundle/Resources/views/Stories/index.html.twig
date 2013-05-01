@@ -1,0 +1,13 @@
+{% extends 'ApplicationDefaultBundle::layout.html.twig' %}
+ {% block body %}
+ <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+ {% javascripts '@ApplicationDefaultBundle/Resources/public/js/stories.js' %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+  {% endjavascripts %}
+
+
+  <h1>Stories</h1>
+  <p>What's going on with the Stories mate?</p>
+  <h2>Total stories created per month</h2>
+  <div id="chart_div_totalPerMonth" style="width: 950px; height: 500px;"></div>
+ {% endblock %}
