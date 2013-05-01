@@ -5,5 +5,5 @@ application_default_estimates:
     pattern:  /estimates
     defaults: { _controller: ApplicationDefaultBundle:Estimates:index }
 application_default_estimates_data:
-    pattern:  /estimates/data
+    pattern:  /estimates/data/{type}
     defaults: { _controller: ApplicationDefaultBundle:Estimates:data }    
