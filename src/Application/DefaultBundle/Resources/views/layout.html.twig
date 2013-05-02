@@ -45,9 +45,34 @@
             <span class="icon-bar"></span>
           </button>
           <a class="brand" href="#">Trendsetter!</a>
-          <div class="nav-collapse collapse">
-            <ul class="nav">
+          <ul class="nav" role="navigation">
               <li{% if app.request.get('_route') == 'application_default_homepage' %} class="active"{% endif %}><a href="/">Home</a></li>
+              <li class="dropdown">
+                <a id="drop1" href="/" role="button" class="dropdown-toggle{% if app.request.get('_route') == 'application_default_estimates' %} active{% endif %}" data-toggle="dropdown">Estimates <b class="caret"></b></a>
+                <ul class="dropdown-menu" role="menu" aria-labelledby="drop1">
+                  <li role="presentation"><a role="menuitem" tabindex="-1" href="/estimates">Overview</a></li>
+                  <li role="presentation" class="divider"></li>
+                  <li role="presentation"><a role="menuitem" tabindex="-1" href="#anotherAction">Gaia</a></li>
+                  <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Prime</a></li>
+                  <li role="presentation"><a role="menuitem" tabindex="-1" href="#">A-Team</a></li>
+                  <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Raptor</a></li>
+                </ul>
+              </li>
+              <li class="dropdown">
+                <a href="#" id="drop2" role="button" class="dropdown-toggle" data-toggle="dropdown">Stories <b class="caret"></b></a>
+                <ul class="dropdown-menu" role="menu" aria-labelledby="drop2">
+                  <li role="presentation"><a role="menuitem" tabindex="-1" href="/stories">Overview</a></li>
+                  <li role="presentation" class="divider"></li>
+                  <li role="presentation"><a role="menuitem" tabindex="-1" href="#anotherAction">Gaia</a></li>
+                  <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Prime</a></li>
+                  <li role="presentation"><a role="menuitem" tabindex="-1" href="#">A-Team</a></li>
+                  <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Raptor</a></li>
+                </ul>
+              </li>
+            </ul>
+            <!--
+            <ul class="nav">
+              <li><a href="/">Home</a></li>
               <li{% if app.request.get('_route') == 'application_default_estimates' %} class="active"{% endif %}><a href="/estimates">Estimates</a></li>
               <li{% if app.request.get('_route') == 'application_default_sprints' %} class="active"{% endif %}><a href="/sprints">Sprints</a></li>
               <li{% if app.request.get('_route') == 'application_default_stories' %} class="active"{% endif %}><a href="/stories">Stories</a></li>
