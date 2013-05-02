@@ -23,31 +23,12 @@ class StoriesController extends Controller
      * @return $response object
      **/
     public function teamAction($teamname) {
-      switch ($teamname) {
-        case 'gaia':
-          $team = 'Gaia';
-          $backlog = 9248;
-          break;
-        case 'ateam':
-          $team = 'A-Team';
-          $backlog = 7869;
-          break;
-        case 'raptor':
-          $team = 'Raptor';
-          $backlog = 9862;
-          break;
-        case 'prime':
-          $team = 'Prime';
-          $backlog = 9555;
-          break;
-      }
-
+      $teams = $this->container->getParameter('teams');
       return $this->render(
           'ApplicationDefaultBundle:Stories:index.html.twig', 
           array(
-            'team'      => $team,
-            'teamname'  => $teamname,
-            'backlog'   => $backlog
+            'teamname'  => $teams[$teamname]['name'],
+            'backlog'   => $teams[$teamname]['backlog']
             )
       );      
     }    
