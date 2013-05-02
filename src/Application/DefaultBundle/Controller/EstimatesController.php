@@ -8,6 +8,10 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 
 class EstimatesController extends Controller
 {    
+    /**
+     * Index, just show a summary/overview
+     * @return $response object
+     **/
     public function indexAction()
     {
 
@@ -17,16 +21,57 @@ class EstimatesController extends Controller
         );
     }
 
-    public function dataAction($type = 'estimatespread') {
+    /**
+     * Return data PER team
+     * $param $team string - the team name
+     * @return $response object
+     **/
+    public function teamAction($teamname) {
+      switch ($teamname) {
+        case 'gaia':
+          $team = 'Gaia';
+          $backlog = 9248;
+          break;
+        case 'ateam':
+          $team = 'A-Team';
+          $backlog = 7869;
+          break;
+        case 'raptor':
+          $team = 'Raptor';
+          $backlog = 9862;
+          break;
+        case 'prime':
+          $team = 'Prime';
+          $backlog = 9555;
+          break;
+      }
+
+      return $this->render(
+          'ApplicationDefaultBundle:Estimates:index.html.twig', 
+          array(
+            'team'      => $team,
+            'teamname'  => $teamname,
+            'backlog'   => $backlog
+            )
+      );      
+    }
+
+    /**
+     * Returns JSON for Google Charts
+     * @param $type string - Which data to return?
+     * @return $response object (JSON)
+     **/
+    public function dataAction($type, $backlog) {
       
       $easybacklogClient = $this->get('mikepearce_easybacklog_api');
       $easybacklogClient->setAccountId('477')
-                        ->setBacklog(array(9248,7869,9555));
+                        ->setBacklog($backlog);
       
       $estimates = new Estimates($easybacklogClient);
       
       switch($type) {
         case 'estimatespread':
+        case 'backlogestimatespread':
           $data = $estimates->getEstimateSpreadPerMonth();
           break;
         case 'totalstoriespermonth':
@@ -36,11 +81,12 @@ class EstimatesController extends Controller
           throw new \Exception("I don't know what ". $type ."is.", 1);
           
       }
-      
 
       $response = new JsonResponse();
       $response->setData($data);
       $response->headers->set('Content-Type', 'application/json');
       return $response;
     }
+
+
 }

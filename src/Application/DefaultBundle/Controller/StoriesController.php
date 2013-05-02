@@ -17,16 +17,52 @@ class StoriesController extends Controller
         );
     }
 
-    public function dataAction($type = 'totalstoriespermonth') {
+    /**
+     * Return data PER team
+     * $param $team string - the team name
+     * @return $response object
+     **/
+    public function teamAction($teamname) {
+      switch ($teamname) {
+        case 'gaia':
+          $team = 'Gaia';
+          $backlog = 9248;
+          break;
+        case 'ateam':
+          $team = 'A-Team';
+          $backlog = 7869;
+          break;
+        case 'raptor':
+          $team = 'Raptor';
+          $backlog = 9862;
+          break;
+        case 'prime':
+          $team = 'Prime';
+          $backlog = 9555;
+          break;
+      }
+
+      return $this->render(
+          'ApplicationDefaultBundle:Stories:index.html.twig', 
+          array(
+            'team'      => $team,
+            'teamname'  => $teamname,
+            'backlog'   => $backlog
+            )
+      );      
+    }    
+
+    public function dataAction($type, $backlog) {
       
       $easybacklogClient = $this->get('mikepearce_easybacklog_api');
       $easybacklogClient->setAccountId('477')
-                        ->setBacklog(array(9248,7869,9555));
+                        ->setBacklog($backlog);
       
       $estimates = new Estimates($easybacklogClient);
       
       switch($type) {
         case 'totalstoriespermonth':
+        case 'backlogtotalstoriespermonth':
           $data = $estimates->gettotalStoriesPerMonth();
           break;
         default:

@@ -7,13 +7,21 @@ application_default_estimates:
     defaults: { _controller: ApplicationDefaultBundle:Estimates:index }
 
 application_default_estimates_data:
-    pattern:  /estimates/data/{type}
-    defaults: { _controller: ApplicationDefaultBundle:Estimates:data }
+    pattern:  /estimates/data/{type}/{backlog}
+    defaults: { _controller: ApplicationDefaultBundle:Estimates:data, type:estimatespread, backlog:[9248,7869,9555] }
+
+application_default_team_name:
+    pattern:  /estimates/team/{teamname}
+    defaults: { _controller: ApplicationDefaultBundle:Estimates:team, teamname:gaia }
 
 application_default_stories:
     pattern:  /stories
     defaults: { _controller: ApplicationDefaultBundle:Stories:index }
 
+application_default_stories:
+    pattern:  /stories/team/{teamname}
+    defaults: { _controller: ApplicationDefaultBundle:Stories:team, teamname:gaia }    
+
 application_default_stories_data:
-    pattern:  /stories/data/{type}
-    defaults: { _controller: ApplicationDefaultBundle:Stories:data }
+    pattern:  /stories/data/{type}/{backlog}
+    defaults: { _controller: ApplicationDefaultBundle:Stories:data, type:totalstoriespermonth, backlog:[9248,7869,9555]  }

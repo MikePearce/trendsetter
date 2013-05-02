@@ -1,9 +1,9 @@
 google.load('visualization', '1', {packages: ['corechart']});
 function drawVisualization() {
-
+    var backlogurl = ($('body').data('backlog') ? '/backlogestimatespread/'+ $('body').data('backlog') : '');
     // Get the json
     var jsonData = $.ajax({
-            url: "/estimates/data/estimatespread",
+            url: "/estimates/data"+ backlogurl,
             dataType:"json",
             async: false
     }).responseText;
@@ -12,7 +12,6 @@ function drawVisualization() {
     var data = new google.visualization.DataTable(jsonData);
 
     var options = {
-        title : 'Monthly spread of story points: all teams',
         vAxis: {title: "No of instances"},
         hAxis: {title: "Year/Month"},
         bar: { groupWidth: "90%" },

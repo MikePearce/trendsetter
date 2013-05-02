@@ -1,13 +1,21 @@
 {% extends 'ApplicationDefaultBundle::layout.html.twig' %}
- {% block body %}
- <script type="text/javascript" src="https://www.google.com/jsapi"></script>
- {% javascripts '@ApplicationDefaultBundle/Resources/public/js/estimates.js' %}
-    <script type="text/javascript" src="{{ asset_url }}"></script>
-  {% endjavascripts %}
+{% block body %}
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    {% if backlog is defined %}
+        <script type="text/javascript">
+            $(document).ready(function() {
+                $('body').data('backlog', "{{backlog}}");
+            });
+        </script>
+    {% endif %}
+    {% javascripts '@ApplicationDefaultBundle/Resources/public/js/estimates.js' %}
+        <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
 
 
-  <h1>Estimates</h1>
-  <p>What's going on with the estimates mate?</p>
-  <h2>Spread of estimate sizes per month</h2>
-  <div id="chart_div" style="width: 950px; height: 500px;"></div>
- {% endblock %}
+    <h1>Estimates</h1>
+        <p>What's going on with the estimates mate?</p>
+        <h2>Spread of estimate sizes per month {% if team is defined %} for team {{team}} {% endif %}</h2>
+        <div id="chart_div" style="width: 950px; height: 500px;"></div>
+
+{% endblock %}

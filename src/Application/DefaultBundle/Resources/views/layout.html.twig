@@ -14,6 +14,12 @@
 		<link rel="stylesheet" href="{{ asset_url }}" />
 	{% endstylesheets %}
 
+      {% javascripts '@ApplicationDefaultBundle/Resources/public/js/angular.min.js'
+                   '@ApplicationDefaultBundle/Resources/public/js/jquery-1.9.1.min.js'
+                   '@ApplicationDefaultBundle/Resources/public/js/bootstrap.min.js' %}
+      <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+
     <!-- Le styles -->
     <style>
       body {
@@ -52,10 +58,10 @@
                 <ul class="dropdown-menu" role="menu" aria-labelledby="drop1">
                   <li role="presentation"><a role="menuitem" tabindex="-1" href="/estimates">Overview</a></li>
                   <li role="presentation" class="divider"></li>
-                  <li role="presentation"><a role="menuitem" tabindex="-1" href="#anotherAction">Gaia</a></li>
-                  <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Prime</a></li>
-                  <li role="presentation"><a role="menuitem" tabindex="-1" href="#">A-Team</a></li>
-                  <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Raptor</a></li>
+                  <li role="presentation"><a role="menuitem" tabindex="-1" href="/estimates/team/gaia">Gaia</a></li>
+                  <li role="presentation"><a role="menuitem" tabindex="-1" href="/estimates/team/prime">Prime</a></li>
+                  <li role="presentation"><a role="menuitem" tabindex="-1" href="/estimates/team/ateam">A-Team</a></li>
+                  <li role="presentation"><a role="menuitem" tabindex="-1" href="/estimates/team/raptor">Raptor</a></li>
                 </ul>
               </li>
               <li class="dropdown">
@@ -63,10 +69,10 @@
                 <ul class="dropdown-menu" role="menu" aria-labelledby="drop2">
                   <li role="presentation"><a role="menuitem" tabindex="-1" href="/stories">Overview</a></li>
                   <li role="presentation" class="divider"></li>
-                  <li role="presentation"><a role="menuitem" tabindex="-1" href="#anotherAction">Gaia</a></li>
-                  <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Prime</a></li>
-                  <li role="presentation"><a role="menuitem" tabindex="-1" href="#">A-Team</a></li>
-                  <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Raptor</a></li>
+                  <li role="presentation"><a role="menuitem" tabindex="-1" href="/stories/team/gaia">Gaia</a></li>
+                  <li role="presentation"><a role="menuitem" tabindex="-1" href="/stories/team/prime">Prime</a></li>
+                  <li role="presentation"><a role="menuitem" tabindex="-1" href="/stories/team/ateam">A-Team</a></li>
+                  <li role="presentation"><a role="menuitem" tabindex="-1" href="/stories/team/raptor">Raptor</a></li>
                 </ul>
               </li>
             </ul>
@@ -89,11 +95,7 @@
     <!-- Le javascript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    {% javascripts '@ApplicationDefaultBundle/Resources/public/js/angular.min.js'
-                   '@ApplicationDefaultBundle/Resources/public/js/jquery-1.9.1.min.js'
-                   '@ApplicationDefaultBundle/Resources/public/js/bootstrap.min.js' %}
-      <script type="text/javascript" src="{{ asset_url }}"></script>
-    {% endjavascripts %}
+
 
   </body>
 </html>
