@@ -1,9 +1,11 @@
 google.load('visualization', '1', {packages: ['corechart']});
 function drawVisualization() {
 
+    var backlogurl = ($('body').data('backlog') ? '/backlogtotalstoriespermonth/'+ $('body').data('backlog') : '');
+
     // Get the json
     var jsonData_totalPerMonth = $.ajax({
-            url: "/stories/data/totalstoriespermonth",
+            url: "/stories/data" + backlogurl,
             dataType:"json",
             async: false
     }).responseText;
