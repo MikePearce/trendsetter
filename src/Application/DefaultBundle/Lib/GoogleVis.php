@@ -21,10 +21,24 @@ class Googlevis {
         return $vis_columns;
     }
 
+    /**
+     * Create the data ROW
+     * @param $label string - Label Name
+     * @param mixed string/array - the data
+     * @return array
+     **/
     public function createDataRow($label, $data) {
 
         $row_label = array(array('v' => $label, 'f' => null));
-        $row_data = array(array('v' => $data , 'f' => null));
+        if (is_array($data)) {
+            $row_data = array();
+            foreach($data AS $value) {
+                $row_data[] = array('v' => $value , 'f' => null);
+            }
+        }
+        else {
+            $row_data = array(array('v' => $data , 'f' => null));    
+        }
         return array('c' => array_merge($row_label, $row_data));
     }
 }

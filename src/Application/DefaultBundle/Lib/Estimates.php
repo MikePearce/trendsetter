@@ -1,6 +1,7 @@
 <?php
 
 namespace Application\DefaultBundle\Lib;
+use Application\DefaultBundle\Lib\Googlevis;
 
 class Estimates {
 
@@ -69,14 +70,8 @@ class Estimates {
      * @return array
      **/
     public function gettotalStoriesPerMonth() {
-
-        $columns = array();
-        foreach(array(
-            'Year/Month'     => 'string', 
-            'No. of Stories'   => 'number', 
-            ) AS $field => $type) {
-                $columns[] = array('id' => '', 'label' => $field, 'pattern' => '', 'type' => $type);
-        }
+      $googleVis = new Googlevis();
+      $columns = $googleVis->createColumns(array('Year/Month'     => 'string', 'No. of Stories'   => 'number'));
 
         $estimate_data = $this->getEstimateDataByMonth(
           $this->easybacklogClient->getStoriesFromTheme()
@@ -86,16 +81,15 @@ class Estimates {
 
         foreach($estimate_data AS $year => $month) {
             foreach($month AS $month_no => $stories) {
-                $row_label = array(array('v' => $year ."/". $month_no, 'f' => null));
                 foreach($stories AS $story) {
                     $counter = (!isset($counter) ? 0 : $counter);
                     $counter += $story;
                 }
-                $row_data = array(array('v' => $counter , 'f' => null));
-                $row['c'] = array_merge($row_label, $row_data);
-                $rows[] = $row;
+                $rows[] = $googleVis->createDataRow(
+                  $year ."/". $month_no,
+                  $counter
+                );
                 $counter = 0;
-                $row = $row_data = $row_label = array();
             }
         }
         return array('cols' => $columns, 'rows' => $rows);
@@ -109,19 +103,20 @@ class Estimates {
     public function getEstimateSpreadPerMonth() {
 
       // Do the columns
-      $columns = array();
-      foreach(array(
-        'Month'     => 'string', 
-        'Size: 1'   => 'number', 
-        'Size: 2'   => 'number', 
-        'Size: 3'   => 'number', 
-        'Size: 5'   => 'number', 
-        'Size: 8'   => 'number', 
-        'Size: 13'  => 'number', 
-        'Size: 20'  => 'number') AS $field => $type) {
-        $columns[] = array('id' => '', 'label' => $field, 'pattern' => '', 'type' => $type);
-      }
-
+      $googleVis = new Googlevis();
+      $columns = $googleVis->createColumns(
+        array(
+          'Month'     => 'string', 
+          'Size: 1'   => 'number', 
+          'Size: 2'   => 'number', 
+          'Size: 3'   => 'number', 
+          'Size: 5'   => 'number', 
+          'Size: 8'   => 'number', 
+          'Size: 13'  => 'number', 
+          'Size: 20'  => 'number'
+        )
+      );
+      
       // Do the data
       $rows = array();
       
@@ -134,12 +129,17 @@ class Estimates {
       $rows = array();
       foreach($estimate_data AS $year => $month) {
         foreach($month AS $month_no => $estimates) {
-          $row_label = array(array('v' => $year ."/". $month_no, 'f' => null));
+  //        $row_label = array(array('v' => $year ."/". $month_no, 'f' => null));
           foreach (array(1, 2, 3, 5, 8, 13, 20) AS $est) {
-            $row_data[] = array('v' => (isset($estimates[$est]) ? $estimates[$est] : 0), 'f' => null);
+            $row_data[] = (isset($estimates[$est]) ? $estimates[$est] : 0);
           }
-          $row['c'] = array_merge($row_label, $row_data);
-          $rows[] = $row;
+
+          $rows[] = $googleVis->createDataRow(
+            $year ."/". $month_no,
+            $row_data
+          );
+          //$row['c'] = array_merge($row_label, $row_data);
+          //$rows[] = $row;
           $row = $row_label = $row_data = array();
         }
         
