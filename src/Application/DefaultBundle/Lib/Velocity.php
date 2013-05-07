@@ -46,7 +46,7 @@ class Velocity {
         foreach($total_points_per_month AS $month => $points_array) {
             $rows[] = $googleVis->createDataRow(
                 $month,
-                (array_sum($points_array) / count($points_array))
+                ceil((array_sum($points_array) / count($points_array)))
             );
         }
 

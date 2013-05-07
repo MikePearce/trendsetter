@@ -15,6 +15,6 @@
 
     <h1>Velocity</h1>
         <p>What's going on with the velocity mate?</p>
-        <h2>Department Velocity</h2>
+        <h2>Velocity for {% if teamname is defined %} team {{teamname}} {% else %} Department{% endif %}</h2>
         <div id="chart_div" style="width: 950px; height: 500px;"></div>
 {% endblock %}

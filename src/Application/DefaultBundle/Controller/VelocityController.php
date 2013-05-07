@@ -25,7 +25,7 @@ class VelocityController extends Controller
     public function teamAction($teamname) {
       $teams = $this->container->getParameter('teams');
       return $this->render(
-          'ApplicationDefaultBundle:Stories:index.html.twig', 
+          'ApplicationDefaultBundle:Velocity:index.html.twig', 
           array(
             'teamname'  => $teams[$teamname]['name'],
             'backlog'   => $teams[$teamname]['backlog']
