@@ -26,7 +26,7 @@ function drawVisualization() {
     var data = new google.visualization.DataTable(jsonData);
 
     var options = {
-        vAxis: {title: title},
+        vAxis: {title: title, baseline: 0, gridlines: { count: 10 }, maxValue: 35},
         hAxis: {title: "Year/Month"}
     };
 

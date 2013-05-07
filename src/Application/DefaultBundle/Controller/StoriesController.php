@@ -41,10 +41,11 @@ class StoriesController extends Controller
     public function acceptancerateteamAction($teamname) {
       $teams = $this->container->getParameter('teams');
       return $this->render(
-          'ApplicationDefaultBundle:Stories:index.html.twig', 
+          'ApplicationDefaultBundle:Stories:acceptance.html.twig', 
           array(
             'teamname'  => $teams[$teamname]['name'],
             'backlog'   => $teams[$teamname]['backlog'],
+            'datatype' => 'acceptancerate',
             'charttype' => 'line'
             )
       );
