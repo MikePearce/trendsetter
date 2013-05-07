@@ -1,6 +1,7 @@
 <?php
 
 namespace Application\DefaultBundle\Lib;
+use Application\DefaultBundle\Lib\Googlevis;
 
 class Velocity {
 
@@ -23,13 +24,8 @@ class Velocity {
      **/
     public function getVelocity() {
 
-        $columns = array();
-        foreach(array(
-            'Year/Month'     => 'string', 
-            'Velocity'   => 'number', 
-            ) AS $field => $type) {
-                $columns[] = array('id' => '', 'label' => $field, 'pattern' => '', 'type' => $type);
-        }
+        $googleVis = new Googlevis();
+        $columns = $googleVis->createColumns(array('Year/Month' => 'string', 'Velocity'   => 'number'));
 
         $sprint_data = $this->easybacklogClient->getSprints();
         $total_points_per_month = $rows = array();
@@ -46,12 +42,12 @@ class Velocity {
 
         // Now look through and make it fun
         ksort($total_points_per_month);
+        $rows = array();
         foreach($total_points_per_month AS $month => $points_array) {
-            $row_label = array(array('v' => $month, 'f' => null));
-            $row_data = array(array('v' => (array_sum($points_array) / count($points_array)) , 'f' => null));
-            $row['c'] = array_merge($row_label, $row_data);
-            $rows[] = $row;
-            $row = $row_data = $row_label = array();
+            $rows[] = $googleVis->createDataRow(
+                $month,
+                (array_sum($points_array) / count($points_array))
+            );
         }
 
         return array('cols' => $columns, 'rows' => $rows);

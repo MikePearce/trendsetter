@@ -1,0 +1,3 @@
+services:
+    googlevis:
+        class:  DefaultBundle\Lib\GoogleVis
