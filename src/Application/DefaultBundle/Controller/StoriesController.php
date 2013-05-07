@@ -35,22 +35,6 @@ class StoriesController extends Controller
     }    
 
     /**
-     * Velocity
-     **/
-    public function velocityAction() {
-
-      $teams = $this->container->getParameter('teams');
-      
-      return $this->render(
-          'ApplicationDefaultBundle:Stories:index.html.twig', 
-          array(
-            'teamname'  => $teams[$teamname]['name'],
-            'backlog'   => $teams[$teamname]['backlog']
-            )
-      );
-    }
-
-    /**
      * Return the acceptance rate for all teams across all sprints
      **/
     public function acceptancerateAction() {
