@@ -30,6 +30,10 @@ application_default_stories_acceptancerate:
     pattern:  /stories/acceptancerate
     defaults: { _controller: ApplicationDefaultBundle:Stories:acceptancerate }
 
+application_default_stories_acceptancerateteam:
+    pattern:  /stories/acceptancerateteam/{teamname}
+    defaults: { _controller: ApplicationDefaultBundle:Stories:acceptancerateteam, teamname:gaia }    
+
 application_default_velocity:
     pattern:  /velocity
     defaults: { _controller: ApplicationDefaultBundle:Velocity:index }
