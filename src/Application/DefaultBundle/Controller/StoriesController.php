@@ -11,7 +11,6 @@ class StoriesController extends Controller
 {    
     public function indexAction()
     {
-
         return $this->render(
             'ApplicationDefaultBundle:Stories:index.html.twig', 
             array('stuff' => 'stuff')
@@ -32,28 +31,36 @@ class StoriesController extends Controller
             'backlog'   => $teams[$teamname]['backlog']
             )
       );      
-    }    
+    }  
+
+    /**
+     * Return Acceptancerate PER team
+     * $param $team string - the team name
+     * @return $response object
+     **/
+    public function acceptancerateteamAction($teamname) {
+      $teams = $this->container->getParameter('teams');
+      return $this->render(
+          'ApplicationDefaultBundle:Stories:index.html.twig', 
+          array(
+            'teamname'  => $teams[$teamname]['name'],
+            'backlog'   => $teams[$teamname]['backlog'],
+            'charttype' => 'line'
+            )
+      );
+    }
 
     /**
      * Return the acceptance rate for all teams across all sprints
      **/
     public function acceptancerateAction() {
-      $easybacklogClient = $this->get('mikepearce_easybacklog_api');
-      $teams = $this->container->getParameter('teams');
-
-      $backlogs = array();
-      foreach($teams AS $team) {
-        $backlogs[] = $team['backlog'];
-      }
-
-      $easybacklogClient->setAccountId('477')
-                        ->setBacklog($backlogs);
-
-      $stories = new Stories($easybacklogClient);
-
-      var_dump($stories->getAcceptanceRateByMonth());
-
-      return $this->response();
+        return $this->render(
+            'ApplicationDefaultBundle:Stories:acceptance.html.twig', 
+            array(
+              'datatype' => 'acceptancerate',
+              'charttype' => 'line'
+            )
+        );
     }
 
     public function dataAction($type, $backlog) {
@@ -62,12 +69,15 @@ class StoriesController extends Controller
       $easybacklogClient->setAccountId('477')
                         ->setBacklog($backlog);
       
-      $estimates = new Estimates($easybacklogClient);
-      
       switch($type) {
         case 'totalstoriespermonth':
         case 'backlogtotalstoriespermonth':
+          $estimates = new Estimates($easybacklogClient);
           $data = $estimates->gettotalStoriesPerMonth();
+          break;
+        case 'acceptancerate':
+          $stories = new Stories($easybacklogClient);
+          $data = $stories->getAcceptanceRateByMonth();
           break;
         default:
           throw new \Exception("I don't know what ". $type ."is.", 1);
