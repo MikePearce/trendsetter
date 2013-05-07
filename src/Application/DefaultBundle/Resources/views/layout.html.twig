@@ -41,6 +41,7 @@
   </head>
 
   <body>
+     {{ knp_menu_render('ApplicationDefaultBundle:Builder:mainMenu', {'currentClass': 'active'}) }}
 	
     <div class="navbar navbar-inverse navbar-fixed-top">
       <div class="navbar-inner">
@@ -50,9 +51,8 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="brand" href="#">Trendsetter!</a>
+          <a class="brand" href="/">Trendsetter!</a>
           <ul class="nav" role="navigation">
-              <li{% if app.request.get('_route') == 'application_default_homepage' %} class="active"{% endif %}><a href="/">Home</a></li>
               <li class="dropdown">
                 <a id="drop1" href="/" role="button" class="dropdown-toggle{% if app.request.get('_route') == 'application_default_estimates' %} active{% endif %}" data-toggle="dropdown">Estimates <b class="caret"></b></a>
                 <ul class="dropdown-menu" role="menu" aria-labelledby="drop1">
