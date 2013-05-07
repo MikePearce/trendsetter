@@ -4,6 +4,7 @@ namespace Application\DefaultBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Application\DefaultBundle\Lib\Estimates;
+use Application\DefaultBundle\Lib\Stories;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 class StoriesController extends Controller
@@ -32,6 +33,44 @@ class StoriesController extends Controller
             )
       );      
     }    
+
+    /**
+     * Velocity
+     **/
+    public function velocityAction() {
+
+      $teams = $this->container->getParameter('teams');
+      
+      return $this->render(
+          'ApplicationDefaultBundle:Stories:index.html.twig', 
+          array(
+            'teamname'  => $teams[$teamname]['name'],
+            'backlog'   => $teams[$teamname]['backlog']
+            )
+      );
+    }
+
+    /**
+     * Return the acceptance rate for all teams across all sprints
+     **/
+    public function acceptancerateAction() {
+      $easybacklogClient = $this->get('mikepearce_easybacklog_api');
+      $teams = $this->container->getParameter('teams');
+
+      $backlogs = array();
+      foreach($teams AS $team) {
+        $backlogs[] = $team['backlog'];
+      }
+
+      $easybacklogClient->setAccountId('477')
+                        ->setBacklog($backlogs);
+
+      $stories = new Stories($easybacklogClient);
+
+      var_dump($stories->getAcceptanceRateByMonth());
+
+      return $this->response();
+    }
 
     public function dataAction($type, $backlog) {
       

@@ -37,6 +37,11 @@ class Client {
      **/
     private $memcached;
 
+    /**
+     * Should we cache?
+     **/
+    private $cockblock;
+
 
     /**
      * @param $memcached memcache - DI injected
@@ -51,6 +56,7 @@ class Client {
         $this->api_key      = $api_key;
         $this->userid       = $userid;
         $this->memcached    = $memcached;
+        $this->cockblock    = false;
     }
 
     /**
@@ -98,7 +104,13 @@ class Client {
     private function getDataApiData($path = null) {
 
         // No json, get some
-        $json = $this->memcached->get(md5($path));
+        if ($this->cockblock) {
+            $json = false;
+        }
+        else {
+            $json = $this->memcached->get(md5($path));    
+        }
+        
         if ($json == false) {
             $json =  $this->getJsonFromApi($path);
         }
@@ -124,6 +136,9 @@ class Client {
      **/
     private function addDataToCache($key, $json) {
 
+        // If we're blocking
+        if ($this->cockblock) return;
+
         // First, add a timestamp
         $data = json_decode($json, true);
         $data['date'] = time();
@@ -136,19 +151,60 @@ class Client {
 
     /**
      * @param $include_associated_data boo - 
+     * @return array();
      */
     public function getThemes($include_associated_data = false) {
         $path = 'api/backlogs/{backlogid}/themes.json';
         if ($include_associated_data) $path .= '?include_associated_data=true';
+        return $this->loopBacklogs($path);
+        
+    }
+
+    /**
+     * @param $include_associated_data boolean - whether we include the stories
+     * @return array()
+     **/
+    public function getSprints($include_associated_data = false) {
+        $path = 'api/backlogs/{backlogid}/sprints.json';
+
+        if ($include_associated_data) $path .= '?include_associated_data=true';
+        return $this->loopBacklogs($path);
+    }
+
+    /**
+     * Get the backlog stats
+     * @return array
+     **/
+    public function getBacklogStats() {
+        return $this->loopBacklogs('api/accounts/{accountid}/backlogs/{backlogid}/stats.json');
+    }
+
+    /**
+     * Extract just the velocity stuff from the backlog stats
+     * @return array
+     **/
+    public function getVelocityStats() {
+        $stats = $this->getBacklogStats();
+        return array(
+            'velocity_stats'    => $stats['velocity_stats'], 
+            'velocity_complete' => $stats['velocity_completed']
+        );
+    }    
+
+    /**
+     * Loop through the array of backlogs
+     * @param $path string - The path to loop on
+     * @return array
+     **/
+    public function loopBacklogs($path) {
 
         $data = array();
         foreach($this->backlogs AS $backlog_id) {
-            $data = array_merge($data, $this->getDataApiData(str_replace('{backlogid}', $backlog_id, $path)));
-            
+            $data = array_merge($data, $this->getDataApiData(
+                str_replace(array('{backlogid}', '{accountid}'), array($backlog_id, $this->accountid), $path
+            )));
         }
-        
         return $data;
-        
     }
 
     /**
