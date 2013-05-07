@@ -1,0 +1,20 @@
+{% extends 'ApplicationDefaultBundle::layout.html.twig' %}
+{% block body %}
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    {% if backlog is defined %}
+        <script type="text/javascript">
+            $(document).ready(function() {
+                $('body').data('backlog', "{{backlog}}");
+            });
+        </script>
+    {% endif %} 
+    {% javascripts '@ApplicationDefaultBundle/Resources/public/js/velocity.js' %}
+        <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+
+
+    <h1>Velocity</h1>
+        <p>What's going on with the velocity mate?</p>
+        <h2>Department Velocity</h2>
+        <div id="chart_div" style="width: 950px; height: 500px;"></div>
+{% endblock %}
