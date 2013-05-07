@@ -49,9 +49,6 @@ class VelocityController extends Controller
           throw new \Exception("I don't know what ". $type ."is.", 1);
       }
 
-      //$data =  json_decode('{"cols":[{"id":"","label":"Year/Month","pattern":"","type":"string"},{"id":"","label":"Velocity","pattern":"","type":"number"}],"rows":[{"c":[{"v":"2012/09","f":null},{"v":23,"f":null}]},{"c":[{"v":"2012/10","f":null},{"v":20,"f":null}]},{"c":[{"v":"2012/11","f":null},{"v":26,"f":null}]},{"c":[{"v":"2012/12","f":null},{"v":24,"f":null}]}],"p":null} ');
-      
-      
       $response = new JsonResponse();
       $response->setData($data);
       $response->headers->set('Content-Type', 'application/json');
