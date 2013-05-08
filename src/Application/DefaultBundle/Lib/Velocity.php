@@ -13,23 +13,18 @@ class Velocity {
     /**
      * Set the stuff
      * @param $easybacklogClient obj 
+     * @param $memcached obj
      **/
-    public function __construct(\MikePearce\EasybacklogApiBundle\Client\Client $easybacklogClient) {
+    public function __construct(
+        \MikePearce\EasybacklogApiBundle\Client\Client $easybacklogClient,
+        $memcached = false
+    ) {
         $this->easybacklogClient = $easybacklogClient;
+        $this->memcached = $memcached;
     }
 
-    /**
-     * Return the velocity per month
-     
-     **/
-    public function getVelocity() {
+    private function getPointsPerMonth($sprint_data) {
 
-        $googleVis = new Googlevis();
-        $columns = $googleVis->createColumns(array('Year/Month' => 'string', 'Velocity'   => 'number'));
-
-        $sprint_data = $this->easybacklogClient->getSprints();
-        $total_points_per_month = $rows = array();
-        
         foreach($sprint_data AS $sprint) {
 
             if (false == $sprint['completed?']) continue;
@@ -42,6 +37,24 @@ class Velocity {
 
         // Now look through and make it fun
         ksort($total_points_per_month);
+
+        return $total_points_per_month;
+    }
+
+    /**
+     * Return the velocity per month
+     
+     **/
+    public function getVelocity() {
+
+        $googleVis = new Googlevis();
+        $columns = $googleVis->createColumns(
+            array('Year/Month' => 'string', 'Velocity'   => 'number')
+        );
+
+        $total_points_per_month = $rows = array();
+        $total_points_per_month = $this->getPointsPerMonth($this->easybacklogClient->getSprints());
+
         $rows = array();
         foreach($total_points_per_month AS $month => $points_array) {
             $rows[] = $googleVis->createDataRow(
@@ -52,4 +65,25 @@ class Velocity {
 
         return array('cols' => $columns, 'rows' => $rows);
     }  
+
+    /**
+     * Get LAST months velocity
+     * @return int
+     **/
+    public function getCurrentVelocity() {
+
+        // Get the month and see if it's in memcached
+        $last_month = date("Y/m", strtotime("-1 month"));
+        $velocity = $this->memcached->get(md5($last_month.'velocity'));
+
+        // If not, get it, then put it in memcached
+        if (false == $velocity) {
+            $tppm = $this->getPointsPerMonth($this->easybacklogClient->getSprints());
+            $velocity = ceil(array_sum($tppm[$last_month]) / count($tppm[$last_month]));    
+            $this->memcached->set(md5($last_month.'velocity'), $velocity);
+        }
+
+        return $velocity;
+        
+    }
 }
