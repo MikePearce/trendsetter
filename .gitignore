@@ -4,3 +4,5 @@ app/cache
 app/logs
 services.yml
 web/bundles
+Capfile
+app/config/deploy.rb
