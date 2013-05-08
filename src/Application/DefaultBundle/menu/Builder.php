@@ -10,7 +10,8 @@ class Builder extends ContainerAware
     {
         $menu = $factory->createItem('root');
         $menu->setChildrenAttribute('class', 'nav')
-             ->setChildrenAttribute('role', 'navigation');
+             ->setChildrenAttribute('role', 'navigation')
+             ->addChild('Home', array('uri' => '/'));
 
         // Estimates
         $menu->addChild('Estimates')->setAttribute('dropdown', true);     
