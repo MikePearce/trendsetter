@@ -13,3 +13,22 @@ parameters:
 
     locale:            en
     secret:            adha8y38hafhpaufyjadhsf89pGIUGIUG
+
+parameters:
+  easybacklog_api.api_key:          ******
+  easybacklog_api.url:              https://easybacklog.com
+  easybacklog_api.userid:           ***
+
+  teams:
+    raptor:
+        name:   Raptor
+        backlog:  1111
+    prime:
+        name:   Prime
+        backlog:  2222
+    ateam:
+        name:   A-Team
+        backlog:  3333
+    gaia:
+        name:   Gaia
+        backlog:  4444
