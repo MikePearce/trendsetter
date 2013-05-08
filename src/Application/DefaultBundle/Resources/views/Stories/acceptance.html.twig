@@ -13,10 +13,9 @@
     {% javascripts '@ApplicationDefaultBundle/Resources/public/js/stories.js' %}
         <script type="text/javascript" src="{{ asset_url }}"></script>
     {% endjavascripts %}
+    {% set menu = knp_menu_get('ApplicationDefaultBundle:Builder:mainMenu', ['Acceptance'], {'submenu': 'true' }) %}
+    {{ knp_menu_render(menu) }}
 
-
-    <h1>Stories</h1>
-        <p>What's going on with the Stories mate?</p>
-        <h2>Acceptance Rate {% if teamname is defined %} for team {{teamname}} {% endif %}</h2>
-        <div id="chart_div" style="width: 950px; height: 500px;"></div>
+    <h1>Acceptance Rate {% if teamname is defined %} for team {{teamname}} {% endif %}</h1>
+    <div id="chart_div" style="width: 950px; height: 500px;"></div>
 {% endblock %}
