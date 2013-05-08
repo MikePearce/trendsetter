@@ -41,7 +41,7 @@
   </head>
 
   <body>
-     {{ knp_menu_render('ApplicationDefaultBundle:Builder:mainMenu', {'currentClass': 'active'}) }}
+     
 	
     <div class="navbar navbar-inverse navbar-fixed-top">
       <div class="navbar-inner">
@@ -52,60 +52,9 @@
             <span class="icon-bar"></span>
           </button>
           <a class="brand" href="/">Trendsetter!</a>
-          <ul class="nav" role="navigation">
-              <li class="dropdown">
-                <a id="drop1" href="/" role="button" class="dropdown-toggle{% if app.request.get('_route') == 'application_default_estimates' %} active{% endif %}" data-toggle="dropdown">Estimates <b class="caret"></b></a>
-                <ul class="dropdown-menu" role="menu" aria-labelledby="drop1">
-                  <li role="presentation"><a role="menuitem" tabindex="-1" href="/estimates">Overview</a></li>
-                  <li role="presentation" class="divider"></li>
-                  <li role="presentation"><a role="menuitem" tabindex="-1" href="/estimates/team/gaia">Gaia</a></li>
-                  <li role="presentation"><a role="menuitem" tabindex="-1" href="/estimates/team/prime">Prime</a></li>
-                  <li role="presentation"><a role="menuitem" tabindex="-1" href="/estimates/team/ateam">A-Team</a></li>
-                  <li role="presentation"><a role="menuitem" tabindex="-1" href="/estimates/team/raptor">Raptor</a></li>
-                </ul>
-              </li>
-              <li class="dropdown">
-                <a href="#" id="drop2" role="button" class="dropdown-toggle" data-toggle="dropdown">Stories <b class="caret"></b></a>
-                <ul class="dropdown-menu" role="menu" aria-labelledby="drop2">
-                  <li role="presentation"><a role="menuitem" tabindex="-1" href="/stories">Overview</a></li>
-                  <li role="presentation" class="divider"></li>
-                  <li role="presentation"><a role="menuitem" tabindex="-1" href="/stories/team/gaia">Gaia</a></li>
-                  <li role="presentation"><a role="menuitem" tabindex="-1" href="/stories/team/prime">Prime</a></li>
-                  <li role="presentation"><a role="menuitem" tabindex="-1" href="/stories/team/ateam">A-Team</a></li>
-                  <li role="presentation"><a role="menuitem" tabindex="-1" href="/stories/team/raptor">Raptor</a></li>
-                </ul>
-              </li>
-              <li class="dropdown">
-                <a href="#" id="drop2" role="button" class="dropdown-toggle" data-toggle="dropdown">Acceptance <b class="caret"></b></a>
-                <ul class="dropdown-menu" role="menu" aria-labelledby="drop2">
-                  <li role="presentation"><a role="menuitem" tabindex="-1" href="/stories/acceptancerate">Overview</a></li>
-                  <li role="presentation" class="divider"></li>
-                  <li role="presentation"><a role="menuitem" tabindex="-1" href="/stories/acceptancerateteam/gaia">Gaia</a></li>
-                  <li role="presentation"><a role="menuitem" tabindex="-1" href="/stories/acceptancerateteam/prime">Prime</a></li>
-                  <li role="presentation"><a role="menuitem" tabindex="-1" href="/stories/acceptancerateteam/ateam">A-Team</a></li>
-                  <li role="presentation"><a role="menuitem" tabindex="-1" href="/stories/acceptancerateteam/raptor">Raptor</a></li>
-                </ul>
-              </li>              
-              <li class="dropdown">
-                <a href="#" id="drop2" role="button" class="dropdown-toggle" data-toggle="dropdown">Velocity <b class="caret"></b></a>
-                <ul class="dropdown-menu" role="menu" aria-labelledby="drop2">
-                  <li role="presentation"><a role="menuitem" tabindex="-1" href="/velocity">Department</a></li>
-                  <li role="presentation" class="divider"></li>
-                  <li role="presentation"><a role="menuitem" tabindex="-1" href="/velocity/team/gaia">Gaia</a></li>
-                  <li role="presentation"><a role="menuitem" tabindex="-1" href="/velocity/team/prime">Prime</a></li>
-                  <li role="presentation"><a role="menuitem" tabindex="-1" href="/velocity/team/ateam">A-Team</a></li>
-                  <li role="presentation"><a role="menuitem" tabindex="-1" href="/velocity/team/raptor">Raptor</a></li>
-                </ul>
-              </li>
-            </ul>
-            <!--
-            <ul class="nav">
-              <li><a href="/">Home</a></li>
-              <li{% if app.request.get('_route') == 'application_default_estimates' %} class="active"{% endif %}><a href="/estimates">Estimates</a></li>
-              <li{% if app.request.get('_route') == 'application_default_sprints' %} class="active"{% endif %}><a href="/sprints">Sprints</a></li>
-              <li{% if app.request.get('_route') == 'application_default_stories' %} class="active"{% endif %}><a href="/stories">Stories</a></li>
-            </ul>
-          </div><!--/.nav-collapse -->
+          {# Build the menu #}
+          {{ knp_menu_render('ApplicationDefaultBundle:Builder:mainMenu', {'currentClass': 'active'}) }}
+          {# Build the menu #}
         </div>
       </div>
     </div>

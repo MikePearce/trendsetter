@@ -13,6 +13,8 @@
     {% javascripts '@ApplicationDefaultBundle/Resources/public/js/stories.js' %}
         <script type="text/javascript" src="{{ asset_url }}"></script>
     {% endjavascripts %}
+    {% set menu = knp_menu_get('ApplicationDefaultBundle:Builder:mainMenu', ['Stories'], {'submenu': 'true' }) %}
+    {{ knp_menu_render(menu) }}
 
 
     <h1>Stories</h1>
