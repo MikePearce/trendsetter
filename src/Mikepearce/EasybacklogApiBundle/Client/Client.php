@@ -228,11 +228,5 @@ class Client {
         $path = 'api/stories/'. $story_id .'.json?include_associated_data=true';
         return $this->loopBacklogs($path);
     }
-
-    
-
-    public function getStoriesFromSprint() {
-
-    }
     
 }

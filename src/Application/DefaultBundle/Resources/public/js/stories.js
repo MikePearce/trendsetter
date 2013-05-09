@@ -1,5 +1,6 @@
 google.load('visualization', '1', {packages: ['corechart']});
 
+
 function getData(backlogurl) {
     // Get the json
     var jsonData = $.ajax({
@@ -10,6 +11,7 @@ function getData(backlogurl) {
 
     return jsonData;
 }
+
 function drawVisualization() {
 
     if ($('body').data('datatype') == 'acceptancerate') {
@@ -20,6 +22,7 @@ function drawVisualization() {
         var title = 'No. of Stories';
         var backlogurl = '/totalstoriespermonth';
     }
+
 
     backlogurl += ( $('body').data('backlog')
         ? '/' + $('body').data('backlog')

@@ -102,7 +102,7 @@ class Stories {
         return $acceptance;
         
     }
-
+    
     /**
      * Get all the stories
      * @return array

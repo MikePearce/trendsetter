@@ -3,10 +3,12 @@
     <script type="text/javascript" src="https://www.google.com/jsapi"></script>
     
         <script type="text/javascript">
+
             {% if backlog is defined %}$('body').data('backlog', "{{backlog}}");{% endif %} 
             {% if charttype is defined %}$('body').data('charttype', "{{charttype}}");{% endif %} 
             {% if datatype is defined %}$('body').data('datatype', "{{datatype}}");{% endif %} 
             {% if storydata is defined %}$('body').data('storydata', "{{storydata}}");{% endif %} 
+
         </script>
     
     {% javascripts '@ApplicationDefaultBundle/Resources/public/js/stories.js' %}
@@ -18,6 +20,7 @@
 
     <h1>Total stories created per month{% if teamname is defined %}: {{teamname}} {% endif %}</h2>
     <div id="chart_div" style="width: 950px; height: 500px;"></div>
+
     <h3>The Stories</h3>
     <div class="row-fluid" ng-app="storyFilter">
         <div ng-controller="BacklogCtrl">
@@ -73,6 +76,4 @@
         </div>
     </div>
     <p>&nbsp;</p>
-
-
 {% endblock %}

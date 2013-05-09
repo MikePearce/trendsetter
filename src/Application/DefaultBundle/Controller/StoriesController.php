@@ -66,6 +66,7 @@ class StoriesController extends Controller
         );
     }
 
+
     public function dataAction($type, $backlog, $storyid = 0) {
       
       $easybacklogClient = $this->get('mikepearce_easybacklog_api');
@@ -93,6 +94,7 @@ class StoriesController extends Controller
         default:
           throw new \Exception("I don't know what ". $type ."is.", 1);
       }
+
       $response = new JsonResponse();
       $response->setData($data);
       $response->headers->set('Content-Type', 'application/json');
