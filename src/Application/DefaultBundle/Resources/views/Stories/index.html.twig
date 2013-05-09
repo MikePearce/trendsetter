@@ -37,16 +37,16 @@
                 </tr>
                 <tr>
                     <td colspan="4">
-                        <div ng-controller="BacklogCtrl">
-                            <pagination num-pages="noOfPages" current-page="currentPage"></pagination>
-                            <pagination num-pages="noOfPages" current-page="currentPage" class="pagination-small" previous-text="&laquo;" next-text="&raquo;"></pagination>
-                            <pagination boundary-links="true" num-pages="noOfPages" current-page="currentPage" max-size="maxSize"></pagination>
-                            <pagination num-pages="noOfPages" current-page="currentPage"  max-size="maxSize"></pagination>
-                            <pagination direction-links="false" num-pages="noOfPages" current-page="currentPage"></pagination>
-                            <button class="btn" ng-click="setPage(3)">Set current page to: 3</button>
-                            The selected page no: {[currentPage]}
-                        </div>
-
+                    <pagination data-boundary-links="true" data-num-pages="noOfPages" data-current-page="currentPage" max-size="maxSize" class="pagination-small" data-previous-text="&laquo;" data-next-text="&raquo;"></pagination>
+                    <!--
+                        <button ng-disabled="currentPage == 0" ng-click="currentPage=currentPage-1">
+                            Previous
+                        </button>
+                        {[currentPage+1]}/{[numberOfPages()]}
+                        <button ng-disabled="currentPage >= data.length/pageSize - 1" ng-click="currentPage=currentPage+1">
+                        Next
+                        </button>
+                    -->
                     </td>
                 </tr>
             </table>

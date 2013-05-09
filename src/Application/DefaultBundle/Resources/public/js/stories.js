@@ -62,7 +62,6 @@ function BacklogCtrl($scope, Backlog) {
     $scope.currentPage = 0;
     $scope.pageSize = 20;
     $scope.backlog = Backlog;
-    $scope.maxsize = 5;
     $scope.numberOfPages=function(){
         return Math.ceil($scope.backlog.stories.length/$scope.pageSize);                
     }

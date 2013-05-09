@@ -8,17 +8,18 @@
     <meta name="description" content="">
     <meta name="author" content="">
 	<!-- Bootstrap -->    
-	{% stylesheets
-		'@ApplicationDefaultBundle/Resources/public/css/*'
-	%}
-		<link rel="stylesheet" href="{{ asset_url }}" />
-	{% endstylesheets %}
-
-      {% javascripts '@ApplicationDefaultBundle/Resources/public/js/angular.min.js'
-                   '@ApplicationDefaultBundle/Resources/public/js/jquery-1.9.1.min.js'
-                   '@ApplicationDefaultBundle/Resources/public/js/bootstrap.min.js' %}
-      <script type="text/javascript" src="{{ asset_url }}"></script>
-    {% endjavascripts %}
+{% stylesheets
+    '@ApplicationDefaultBundle/Resources/public/css/*'
+  %}
+    <link rel="stylesheet" href="{{ asset_url }}" />
+  {% endstylesheets %}	
+    
+    <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.1.3/angular.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.2.0/ui-bootstrap.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.2.0/ui-bootstrap-tpls.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.0/jquery.min.js "></script>
+    <link nohref="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-combined.min.css" rel="stylesheet">
+     
 
     <!-- Le styles -->
     <style>
