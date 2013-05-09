@@ -8,11 +8,6 @@ class Client {
     private $guzzle;
 
     /**
-     * Where are we going to store it?
-     **/
-    private $json_file = 'stories.json';
-
-    /**
      * Your easybacklog.com API key
      **/
     private $api_key;

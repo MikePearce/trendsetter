@@ -29,7 +29,6 @@
                     <th>So that...</th>
                     <th>Size</th>
                 </tr>
-                >
                 <tr ng-click="open(story.id)" ng-repeat="story in backlog.stories | startFrom:currentPage*pageSize | limitTo:pageSize | filter:searchFilter">
                     <td><a>{[story.as_a]}</a></td>
                     <td>{[story.i_want_to]}</td>
