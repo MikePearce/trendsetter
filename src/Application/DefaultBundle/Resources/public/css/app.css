@@ -18,3 +18,7 @@ span.smaller {
     text-align: center;
     height: 200px;
 }
+.pagination, table tr {
+    cursor: hand;
+    cursor: pointer;
+}

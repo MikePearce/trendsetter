@@ -21,7 +21,7 @@
     <h3>The Stories</h3>
     <div class="row-fluid" ng-app="storyFilter">
         <div ng-controller="BacklogCtrl">
-            <input type="text" id="searchText" ng-model="searchText" placeholder="Search">
+            <input type="text" id="searchText" ng-model="searchFilter" placeholder="Search">
             <table class="table table-bordered table-striped table-hover">
                 <tr>
                     <th>As a...</th>
@@ -29,28 +29,24 @@
                     <th>So that...</th>
                     <th>Size</th>
                 </tr>
-                <tr ng-repeat="story in backlog.stories | startFrom:currentPage*pageSize | limitTo:pageSize | filter:searchText">
+                <tr ng-repeat="story in backlog.stories | startFrom:currentPage*pageSize | limitTo:pageSize | filter:searchFilter">
                     <td>{[story.as_a]}</td>
                     <td>{[story.i_want_to]}</td>
                     <td>{[story.so_i_can]}</td>
                     <td>{[story.score_50]}</td>
                 </tr>
-                <tr>
-                    <td colspan="4">
-                    <pagination data-boundary-links="true" data-num-pages="noOfPages" data-current-page="currentPage" max-size="maxSize" class="pagination-small" data-previous-text="&laquo;" data-next-text="&raquo;"></pagination>
-                    <!--
-                        <button ng-disabled="currentPage == 0" ng-click="currentPage=currentPage-1">
-                            Previous
-                        </button>
-                        {[currentPage+1]}/{[numberOfPages()]}
-                        <button ng-disabled="currentPage >= data.length/pageSize - 1" ng-click="currentPage=currentPage+1">
-                        Next
-                        </button>
-                    -->
-                    </td>
-                </tr>
-            </table>
 
+            </table>
+            <div>
+                <pagination 
+                    boundary-links="true" 
+                    num-pages="noOfPages" 
+                    current-page="currentPage" 
+                    max-size="maxSize"
+                    class="pagination"
+                    >
+                </pagination>
+            </div>
         </div>
     </div>
     <p>&nbsp;</p>

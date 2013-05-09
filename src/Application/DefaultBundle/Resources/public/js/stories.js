@@ -58,13 +58,19 @@ storyFilter.factory('Backlog', function() {
     return Backlog;
 });
 
-function BacklogCtrl($scope, Backlog) {
-    $scope.currentPage = 0;
-    $scope.pageSize = 20;
+var BacklogCtrl = function($scope, Backlog) {
+    
+    $scope.currentPage = 1;
     $scope.backlog = Backlog;
-    $scope.numberOfPages=function(){
-        return Math.ceil($scope.backlog.stories.length/$scope.pageSize);                
-    }
+    $scope.pageSize = 10;
+    $scope.noOfPages = Math.ceil($scope.backlog.stories.length/$scope.pageSize);
+    $scope.maxSize = 10;
+
+    // Which Page?
+    $scope.selectPage = function (pageNo) {
+        $scope.currentPage = pageNo;
+    };
+    
 };
 
 //We already have a limitTo filter built-in to angular,
@@ -75,3 +81,4 @@ storyFilter.filter('startFrom', function() {
         return input.slice(start);
     }
 });
+
