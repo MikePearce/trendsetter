@@ -3,11 +3,10 @@
     <script type="text/javascript" src="https://www.google.com/jsapi"></script>
     
         <script type="text/javascript">
-            $(document).ready(function() {
-                {% if backlog is defined %}$('body').data('backlog', "{{backlog}}");{% endif %} 
-                {% if charttype is defined %}$('body').data('charttype', "{{charttype}}");{% endif %} 
-                {% if datatype is defined %}$('body').data('datatype', "{{datatype}}");{% endif %} 
-            });
+            {% if backlog is defined %}$('body').data('backlog', "{{backlog}}");{% endif %} 
+            {% if charttype is defined %}$('body').data('charttype', "{{charttype}}");{% endif %} 
+            {% if datatype is defined %}$('body').data('datatype', "{{datatype}}");{% endif %} 
+            {% if storydata is defined %}$('body').data('storydata', "{{storydata}}");{% endif %} 
         </script>
     
     {% javascripts '@ApplicationDefaultBundle/Resources/public/js/stories.js' %}
@@ -19,4 +18,40 @@
 
     <h1>Total stories created per month{% if teamname is defined %}: {{teamname}} {% endif %}</h2>
     <div id="chart_div" style="width: 950px; height: 500px;"></div>
+    <h3>The Stories</h3>
+    <div class="row-fluid" ng-app="storyFilter">
+        <div ng-controller="BacklogCtrl">
+            <input type="text" id="searchText" ng-model="searchText" placeholder="Search">
+            <table class="table table-bordered table-striped table-hover">
+                <tr>
+                    <th>As a...</th>
+                    <th>I need...</th>
+                    <th>So that...</th>
+                    <th>Size</th>
+                </tr>
+                <tr ng-repeat="story in backlog.stories | startFrom:currentPage*pageSize | limitTo:pageSize | filter:searchText">
+                    <td>{[story.as_a]}</td>
+                    <td>{[story.i_want_to]}</td>
+                    <td>{[story.so_i_can]}</td>
+                    <td>{[story.score_50]}</td>
+                </tr>
+                <tr>
+                    <td colspan="4">
+                        <div ng-controller="BacklogCtrl">
+                            <pagination num-pages="noOfPages" current-page="currentPage"></pagination>
+                            <pagination num-pages="noOfPages" current-page="currentPage" class="pagination-small" previous-text="&laquo;" next-text="&raquo;"></pagination>
+                            <pagination boundary-links="true" num-pages="noOfPages" current-page="currentPage" max-size="maxSize"></pagination>
+                            <pagination num-pages="noOfPages" current-page="currentPage"  max-size="maxSize"></pagination>
+                            <pagination direction-links="false" num-pages="noOfPages" current-page="currentPage"></pagination>
+                            <button class="btn" ng-click="setPage(3)">Set current page to: 3</button>
+                            The selected page no: {[currentPage]}
+                        </div>
+
+                    </td>
+                </tr>
+            </table>
+
+        </div>
+    </div>
+    <p>&nbsp;</p>
 {% endblock %}

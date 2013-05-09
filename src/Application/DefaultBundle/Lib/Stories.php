@@ -102,5 +102,13 @@ class Stories {
         return $acceptance;
         
     }
+
+    /**
+     * Get all the stories
+     * @return array
+     **/
+    public function getStoriesByBacklog() {
+        return $this->easybacklogClient->getStoriesFromTheme(true);
+    }
   
 }

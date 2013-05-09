@@ -28,7 +28,9 @@ class StoriesController extends Controller
           'ApplicationDefaultBundle:Stories:index.html.twig', 
           array(
             'teamname'  => $teams[$teamname]['name'],
-            'backlog'   => $teams[$teamname]['backlog']
+            'backlog'   => $teams[$teamname]['backlog'],
+            'datatype'  => 'totalstoriespermonth',
+            'storydata' => true
             )
       );      
     }  
@@ -80,10 +82,18 @@ class StoriesController extends Controller
           $stories = new Stories($easybacklogClient);
           $data = $stories->getAcceptanceRateByMonth();
           break;
+        case 'stories':
+          $stories = new Stories($easybacklogClient);
+          $data = $stories->getStoriesByBacklog();
+            // $data = array(
+            //   array('as_a' => 'developer', 'i_need' => 'stuff', 'so_that' => 'other_stuff'),
+            //   array('as_a' => 'cheese', 'i_need' => 'beans', 'so_that' => 'bananas'),
+            //   array('as_a' => 'cowboy', 'i_need' => 'cows', 'so_that' => 'milk'),
+            // );
+          break;
         default:
           throw new \Exception("I don't know what ". $type ."is.", 1);
       }
-      
       $response = new JsonResponse();
       $response->setData($data);
       $response->headers->set('Content-Type', 'application/json');

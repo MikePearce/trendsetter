@@ -4,7 +4,7 @@ services:
         class:      Guzzle\Service\Client
         arguments:  ["%easybacklog_api.url%"]
     memcached:
-        class: Memcache
+        class: Memcached
         calls:
             - [ addServers, [ %memcached.servers% ]]
     mikepearce_easybacklog_api:
