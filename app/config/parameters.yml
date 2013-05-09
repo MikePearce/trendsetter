@@ -12,25 +12,25 @@ parameters:
     mailer_password:   ~
 
     locale:            en
-    secret:            adha8y38hafhpaufyjadhsf89pGIUGIUG
+    secret:            hgasdflhgsdhlfg7vt786sftstdv7t
 
-    easybacklog_api.api_key:          xsxsxsxsxsx
+    easybacklog_api.api_key:          z1mqsqagy9lvcrua9np5
     easybacklog_api.url:              https://easybacklog.com
-    easybacklog_api.userid:           xsxsxsxsxssx
+    easybacklog_api.userid:           729
 
     teams:
         raptor:
             name:   Raptor
-            backlog:  1111
+            backlog:  9862
         prime:
             name:   Prime
-            backlog:  2222
+            backlog:  9555
         ateam:
             name:   A-Team
-            backlog:  3333
+            backlog:  7869
         gaia:
             name:   Gaia
-            backlog:  4444
+            backlog:  9248
 
     memcached.servers:
       - { host: 127.0.0.1, port: 11211 }
