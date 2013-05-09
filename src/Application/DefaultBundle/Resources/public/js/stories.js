@@ -47,10 +47,31 @@ function drawVisualization() {
 }
 setTimeout(google.setOnLoadCallback(drawVisualization), 2000);
 
+// Truncate
+angular.module('filters', []).
+    filter('truncate', function () {
+        return function (text, length, end) {
+            if (isNaN(length))
+                length = 10;
+ 
+            if (end === undefined)
+                end = "...";
+ 
+            if (text.length <= length || text.length - end.length <= length) {
+                return text;
+            }
+            else {
+                return String(text).substring(0, length-end.length) + end;
+            }
+ 
+        };
+    });
+
 // Angular shizzie
-var storyFilter = angular.module('storyFilter', ['ui.bootstrap']).config(function($interpolateProvider){
+var storyFilter = angular.module('storyFilter', ['ui.bootstrap', 'filters']).config(function($interpolateProvider){
         $interpolateProvider.startSymbol('{[').endSymbol(']}');
 });
+
 
 storyFilter.factory('Backlog', function() {
     var Backlog = {};
@@ -69,6 +90,23 @@ var BacklogCtrl = function($scope, Backlog) {
     // Which Page?
     $scope.selectPage = function (pageNo) {
         $scope.currentPage = pageNo;
+    };
+
+    // Modal
+    $scope.open = function (storyid) {
+        $scope.shouldBeOpen = true;
+        $scope.story = angular.fromJson(getData('/story/' + $('body').data('backlog') + '/' + storyid));
+    };
+
+    $scope.close = function () {
+        $scope.shouldBeOpen = false;
+    };
+
+    
+
+    $scope.opts = {
+        backdropFade: true,
+        dialogFade:true
     };
     
 };

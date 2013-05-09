@@ -110,5 +110,9 @@ class Stories {
     public function getStoriesByBacklog() {
         return $this->easybacklogClient->getStoriesFromTheme(true);
     }
+
+    public function getSingleStory($story_id) {
+        return $this->easybacklogClient->getStory($story_id);   
+    }
   
 }

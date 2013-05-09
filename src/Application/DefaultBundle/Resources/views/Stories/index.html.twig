@@ -29,7 +29,7 @@
                     <th>So that...</th>
                     <th>Size</th>
                 </tr>
-                <tr ng-repeat="story in backlog.stories | startFrom:currentPage*pageSize | limitTo:pageSize | filter:searchFilter">
+                <tr ng-click="open(story.id)" ng-repeat="story in backlog.stories | startFrom:currentPage*pageSize | limitTo:pageSize | filter:searchFilter">
                     <td>{[story.as_a]}</td>
                     <td>{[story.i_want_to]}</td>
                     <td>{[story.so_i_can]}</td>
@@ -47,7 +47,32 @@
                     >
                 </pagination>
             </div>
+                <div modal="shouldBeOpen" close="close()" options="opts">
+                    <div class="modal-header">
+                        <h4>{[story.i_want_to | uppercase]}</h4>
+                        Created: {[story.created_at|truncate:10:""]}
+                    </div>
+                    <div class="modal-body">
+                        <h5>Story</h5>
+                        As a {[story.as_a]}, I want to {[story.i_want_to]}, so I can {[story.so_i_can]}
+                        <h5>Acceptance</h5>
+                        <ul>
+                            <li ng-repeat="acceptance in story.acceptance_criteria">{[acceptance.criterion]}</li>
+                        </ul>
+                        <h5>Comments</h5>
+                        {[story.comments]}
+                        <h5>Estimate</h5>
+                        {[story.score]}
+                        <br /><br />
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-warning cancel" ng-click="close()">Cancel</button>
+                    </div>
+                </div>
+
         </div>
     </div>
     <p>&nbsp;</p>
+
+
 {% endblock %}

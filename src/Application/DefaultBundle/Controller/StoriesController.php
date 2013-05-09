@@ -66,7 +66,7 @@ class StoriesController extends Controller
         );
     }
 
-    public function dataAction($type, $backlog) {
+    public function dataAction($type, $backlog, $storyid = 0) {
       
       $easybacklogClient = $this->get('mikepearce_easybacklog_api');
       $easybacklogClient->setAccountId('477')
@@ -85,12 +85,11 @@ class StoriesController extends Controller
         case 'stories':
           $stories = new Stories($easybacklogClient);
           $data = $stories->getStoriesByBacklog();
-            // $data = array(
-            //   array('as_a' => 'developer', 'i_need' => 'stuff', 'so_that' => 'other_stuff'),
-            //   array('as_a' => 'cheese', 'i_need' => 'beans', 'so_that' => 'bananas'),
-            //   array('as_a' => 'cowboy', 'i_need' => 'cows', 'so_that' => 'milk'),
-            // );
           break;
+        case 'story':
+          $stories = new Stories($easybacklogClient);
+          $data = $stories->getSingleStory($storyid);
+          break;  
         default:
           throw new \Exception("I don't know what ". $type ."is.", 1);
       }

@@ -224,6 +224,16 @@ class Client {
         return $stories;
     }
 
+    /**
+     * Get a single story
+     * @param $story_id int
+     * @return array
+     **/
+    public function getStory($story_id) {
+        $path = 'api/stories/'. $story_id .'.json?include_associated_data=true';
+        return $this->loopBacklogs($path);
+    }
+
     
 
     public function getStoriesFromSprint() {

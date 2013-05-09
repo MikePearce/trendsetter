@@ -23,8 +23,8 @@ application_default_stories_team:
     defaults: { _controller: ApplicationDefaultBundle:Stories:team, teamname:gaia }    
 
 application_default_stories_data:
-    pattern:  /stories/data/{type}/{backlog}
-    defaults: { _controller: ApplicationDefaultBundle:Stories:data, type:totalstoriespermonth, backlog:[9248,7869,9555]  }
+    pattern:  /stories/data/{type}/{backlog}/{storyid}
+    defaults: { _controller: ApplicationDefaultBundle:Stories:data, type:totalstoriespermonth, backlog:[9248,7869,9555], storyid: 0  }
 
 application_default_stories_acceptancerate:
     pattern:  /stories/acceptancerate
