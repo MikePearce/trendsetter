@@ -2,6 +2,10 @@ application_default_homepage:
     pattern:  /
     defaults: { _controller: ApplicationDefaultBundle:Default:index }
 
+application_default_fullscreen:
+    pattern:  /fullscreen
+    defaults: { _controller: ApplicationDefaultBundle:Default:fullscreen }
+
 application_default_homepage_data:
     pattern:  /data/{type}/{backlog}/{storyid}
     defaults: { _controller: ApplicationDefaultBundle:Default:data, type:general-deptstats, backlog:[9248,7869,9555,9862], storyid: 0 }

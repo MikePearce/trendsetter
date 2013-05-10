@@ -15,6 +15,11 @@ class DefaultController extends Controller
         return $this->render('ApplicationDefaultBundle:Default:index.html.twig');
     }
 
+    public function fullscreenAction()
+    {        
+        return $this->render('ApplicationDefaultBundle:Default:fullscreen.html.twig');
+    }
+
     /**
      * Generic data endpoint
      * @return response object
