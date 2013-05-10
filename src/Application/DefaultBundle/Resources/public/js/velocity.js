@@ -1,21 +1,13 @@
 google.load('visualization', '1', {packages: ['corechart']});
 function drawVisualization() {
 
-    var backlogurl = ($('body').data('backlog') ? '/velocity/data/departmentvelocity/'+ $('body').data('backlog') : '/velocity/data');
+    var backlogurl = ($('body').data('backlog') ? '/data/departmentvelocity/'+ $('body').data('backlog') : '/data/departmentvelocity');
 
     // Get the json
     var jsonData = getData(backlogurl);
 
     // Create our data table out of JSON data loaded from server.
     var data = new google.visualization.DataTable(jsonData);
-
-        // var data = google.visualization.arrayToDataTable([
-        //   ['Year/Month', 'Velocity'],
-        //   ['2012/09',  23],
-        //   ['2012/10',  20],
-        //   ['2012/11',  26],
-        //   ['2012/12',  24]
-        // ]);
 
     var options = {
       title: 'Company Performance',
