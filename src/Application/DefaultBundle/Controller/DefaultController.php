@@ -57,12 +57,41 @@ class DefaultController extends Controller
 
                 
             }
-          break;
+            break;
+        
+        // Story stuff
         case 'story-single':
-          $stories = new Stories($easybacklogClient);
-          $data = $stories->getSingleStory($storyid);
-          break;
+              $stories = new Stories($easybacklogClient);
+              $data = $stories->getSingleStory($storyid);
+            break;
+        case 'backlogtotalstoriespermonth':
+              $estimates = new Estimates($easybacklogClient);
+              $data = $estimates->gettotalStoriesPerMonth();
+            break;
+        case 'acceptancerate':
+              $stories = new Stories($easybacklogClient);
+              $data = $stories->getAcceptanceRateForGoogleVis();
+            break;
+        case 'stories':
+              $stories = new Stories($easybacklogClient);
+              $data = $stories->getStoriesByBacklog();
+            break;  
 
+        // Estimate stuff
+        case 'backlogestimatespread':
+              $estimates = new Estimates($easybacklogClient);
+              $data = $estimates->getEstimateSpreadPerMonth();
+            break;
+        case 'totalstoriespermonth':
+            $estimates = new Estimates($easybacklogClient);
+            $data = $estimates->gettotalStoriesPerMonth();
+            break;
+
+        // Velocity
+        case 'departmentvelocity':
+            $velocity = new Velocity($easybacklogClient);
+            $data = $velocity->getVelocityForGoogleVis();
+            break;
         default:
           throw new \Exception("I don't know what ". $type ."is.", 1);
           

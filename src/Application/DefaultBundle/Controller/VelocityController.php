@@ -32,26 +32,4 @@ class VelocityController extends Controller
             )
       );      
     }    
-
-    public function dataAction($type, $backlog) {
-
-      $easybacklogClient = $this->get('mikepearce_easybacklog_api');
-      $easybacklogClient->setAccountId('477')
-                        ->setBacklog($backlog);
-      
-      $velocity = new Velocity($easybacklogClient);
-      
-      switch($type) {
-        case 'departmentvelocity':
-          $data = $velocity->getVelocityForGoogleVis();
-          break;
-        default:
-          throw new \Exception("I don't know what ". $type ."is.", 1);
-      }
-
-      $response = new JsonResponse();
-      $response->setData($data);
-      $response->headers->set('Content-Type', 'application/json');
-      return $response;
-    }
 }

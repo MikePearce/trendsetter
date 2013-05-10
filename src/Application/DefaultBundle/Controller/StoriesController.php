@@ -66,38 +66,4 @@ class StoriesController extends Controller
         );
     }
 
-
-    public function dataAction($type, $backlog, $storyid = 0) {
-      
-      $easybacklogClient = $this->get('mikepearce_easybacklog_api');
-      $easybacklogClient->setAccountId('477')
-                        ->setBacklog($backlog);
-      
-      switch($type) {
-        case 'totalstoriespermonth':
-        case 'backlogtotalstoriespermonth':
-          $estimates = new Estimates($easybacklogClient);
-          $data = $estimates->gettotalStoriesPerMonth();
-          break;
-        case 'acceptancerate':
-          $stories = new Stories($easybacklogClient);
-          $data = $stories->getAcceptanceRateForGoogleVis();
-          break;
-        case 'stories':
-          $stories = new Stories($easybacklogClient);
-          $data = $stories->getStoriesByBacklog();
-          break;
-        case 'story':
-          $stories = new Stories($easybacklogClient);
-          $data = $stories->getSingleStory($storyid);
-          break;  
-        default:
-          throw new \Exception("I don't know what ". $type ."is.", 1);
-      }
-
-      $response = new JsonResponse();
-      $response->setData($data);
-      $response->headers->set('Content-Type', 'application/json');
-      return $response;
-    }
 }

@@ -4,11 +4,11 @@ function drawVisualization() {
 
     if ($('body').data('datatype') == 'acceptancerate') {
         var title = 'Acceptance Rate';
-        var backlogurl = '/stories/data/acceptancerate';
+        var backlogurl = '/data/acceptancerate';
     }
     else {
         var title = 'No. of Stories';
-        var backlogurl = '/stories/data/totalstoriespermonth';
+        var backlogurl = '/data/totalstoriespermonth';
     }
 
 
@@ -48,7 +48,7 @@ var storyFilter = angular.module('storyFilter', ['ui.bootstrap', 'filters']).con
 
 storyFilter.factory('Backlog', function() {
     var Backlog = {};
-    Backlog.stories = angular.fromJson(getData('/stories/data/stories/'+ $('body').data('backlog')));
+    Backlog.stories = angular.fromJson(getData('/data/stories/'+ $('body').data('backlog')));
     return Backlog;
 });
 

@@ -38,38 +38,4 @@ class EstimatesController extends Controller
       );      
 
     }
-
-    /**
-     * Returns JSON for Google Charts
-     * @param $type string - Which data to return?
-     * @return $response object (JSON)
-     **/
-    public function dataAction($type, $backlog) {
-      
-      $easybacklogClient = $this->get('mikepearce_easybacklog_api');
-      $easybacklogClient->setAccountId('477')
-                        ->setBacklog($backlog);
-      
-      $estimates = new Estimates($easybacklogClient);
-      
-      switch($type) {
-        case 'estimatespread':
-        case 'backlogestimatespread':
-          $data = $estimates->getEstimateSpreadPerMonth();
-          break;
-        case 'totalstoriespermonth':
-          $data = $estimates->gettotalStoriesPerMonth();
-          break;
-        default:
-          throw new \Exception("I don't know what ". $type ."is.", 1);
-          
-      }
-
-      $response = new JsonResponse();
-      $response->setData($data);
-      $response->headers->set('Content-Type', 'application/json');
-      return $response;
-    }
-
-
 }
