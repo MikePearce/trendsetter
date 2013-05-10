@@ -1,4 +1,5 @@
 function getData(backlogurl) {
+    console.log(backlogurl);
     // Get the json
     var jsonData = $.ajax({
             url: backlogurl,

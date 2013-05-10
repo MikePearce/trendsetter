@@ -19,7 +19,7 @@ class DefaultController extends Controller
      * Generic data endpoint
      * @return response object
      **/
-    public function dataAction($type, $backlog = false) {
+    public function dataAction($type, $backlog = false, $storyid = 0) {
 
       $easybacklogClient = $this->get('mikepearce_easybacklog_api');
       $easybacklogClient->setAccountId('477')
@@ -58,6 +58,11 @@ class DefaultController extends Controller
                 
             }
           break;
+        case 'story-single':
+          $stories = new Stories($easybacklogClient);
+          $data = $stories->getSingleStory($storyid);
+          break;
+
         default:
           throw new \Exception("I don't know what ". $type ."is.", 1);
           
