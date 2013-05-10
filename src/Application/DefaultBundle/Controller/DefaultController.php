@@ -27,6 +27,7 @@ class DefaultController extends Controller
       
       // This switch feeds all the data, maybe there is a better way of doing this...
       switch($type) {
+        // Homepage
         case 'general-deptstats':
             $vel = new Velocity($easybacklogClient, $this->get('memcached'));
             $str = new Stories($easybacklogClient, $this->get('memcached'));
@@ -37,7 +38,25 @@ class DefaultController extends Controller
             break;
         case 'general-teamstats':
             $vel = new Velocity($easybacklogClient, $this->get('memcached'));
-            $data = $vel->getCurrentVelocity();
+            $stories = new Stories($easybacklogClient, $this->get('memcached'));
+            $data = array();
+            foreach($this->container->getParameter('teams') AS $team) {
+                $easybacklogClient->setBacklog($team['backlog']);
+                $counter = $totalpoints = 0;
+                // Velocity
+                foreach($vel->getCurrentTeamVelocity($team['backlog']) AS $months) {
+                    $counter += count($months);
+                    $totalpoints += array_sum($months);
+                }
+
+                $data[$team['backlog']] = array(
+                  'name' => $team['name'], 
+                  'velocity' => ceil($totalpoints / $counter),
+                  'acceptance' => $stories->getCurrentAcceptanceRate($team['backlog'])
+                );
+
+                
+            }
           break;
         default:
           throw new \Exception("I don't know what ". $type ."is.", 1);

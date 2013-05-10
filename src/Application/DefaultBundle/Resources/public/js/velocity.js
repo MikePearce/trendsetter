@@ -1,14 +1,10 @@
 google.load('visualization', '1', {packages: ['corechart']});
 function drawVisualization() {
 
-    var backlogurl = ($('body').data('backlog') ? '/departmentvelocity/'+ $('body').data('backlog') : '');
+    var backlogurl = ($('body').data('backlog') ? '/velocity/data/departmentvelocity/'+ $('body').data('backlog') : '/velocity/data');
 
     // Get the json
-    var jsonData = $.ajax({
-            url: "/velocity/data" + backlogurl,
-            dataType:"json",
-            async: false
-    }).responseText;
+    var jsonData = getData(backlogurl);
 
     // Create our data table out of JSON data loaded from server.
     var data = new google.visualization.DataTable(jsonData);

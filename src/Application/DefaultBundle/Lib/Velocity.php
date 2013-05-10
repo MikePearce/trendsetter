@@ -23,6 +23,11 @@ class Velocity {
         $this->memcached = $memcached;
     }
 
+    /**
+     * Go through each sprint and pull out the completed ones, then stuff them into an array
+     * array('yearmonth' => array('velocity1', 'velocity1'))
+     *  @return array
+     **/
     private function getPointsPerMonth($sprint_data) {
 
         foreach($sprint_data AS $sprint) {
@@ -41,6 +46,10 @@ class Velocity {
         return $total_points_per_month;
     }
 
+    /**
+     * Get the velocity and return it as an array formatted for Googel Charts Data
+     * @return array
+     **/
     public function getVelocityForGoogleVis() {
         $googleVis = new Googlevis();
         $columns = $googleVis->createColumns(
@@ -48,7 +57,7 @@ class Velocity {
         );
 
         $total_points_per_month = $rows = array();
-        $total_points_per_month = $this->getVelocity();
+        $total_points_per_month = $this->getPointsPerMonth($this->easybacklogClient->getSprints());
 
         $rows = array();
         foreach($total_points_per_month AS $month => $points_array) {
@@ -62,13 +71,20 @@ class Velocity {
     }
 
     /**
-     * Return the velocity per month
-     
-     **/
-    public function getVelocity() {
-        return $this->getPointsPerMonth($this->easybacklogClient->getSprints());
-    }  
+     * Differs from getCurrentVelocity in that it isn't last months, it's the last four sprints
+     * @return int
+     */
+    public function getCurrentTeamVelocity($backlogid) {
+        $velocity = $this->memcached->get(md5($backlogid.'velocity'));
 
+        // Not in memcache, so let's get it.
+        if (false == $velocity) {
+            $tppm = $this->getPointsPerMonth($this->easybacklogClient->getSprints());
+        }
+
+        return array_slice($tppm, -4);
+
+    }
 
     /**
      * Get LAST months velocity

@@ -23,6 +23,6 @@ homePage.factory('Stats', function() {
 });
 
 var HomepageCtrl = function($scope, Stats) {    
-    $scope.stats = Stats;
-    console.log($scope.stats);
+    $scope.deptstats = Stats.deptstats;
+    $scope.teamstats = Stats.teamstats;
 }

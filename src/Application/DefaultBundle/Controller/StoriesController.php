@@ -81,7 +81,7 @@ class StoriesController extends Controller
           break;
         case 'acceptancerate':
           $stories = new Stories($easybacklogClient);
-          $data = $stories->getAcceptanceRateByMonth();
+          $data = $stories->getAcceptanceRateForGoogleVis();
           break;
         case 'stories':
           $stories = new Stories($easybacklogClient);

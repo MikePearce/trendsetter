@@ -48,7 +48,7 @@ class Stories {
      * @param $stories array - All the stories
      * @return array
      **/
-    public function getAcceptanceRateByMonth() {
+    public function getAcceptanceRateForGoogleVis() {
 
         $monthly_velocity = $this->getMonthlyAcceptance($this->easybacklogClient->getSprints());
         
@@ -78,13 +78,16 @@ class Stories {
 
     /**
      * Get LAST months acceptance
+     * @param $backlogid int - if this is passed, then we're looking for just the team
      * @return int
      **/
-    public function getCurrentAcceptanceRate() {
+    public function getCurrentAcceptanceRate($backlogid = false) {
 
-        // Get the month and see if it's in memcached
         $last_month = date("Y/m", strtotime("-1 month"));
-        $acceptance = $this->memcached->get(md5($last_month.'acceptance'));
+
+        $key =  (false != $backlogid) ? $backlogid : $last_month;
+            
+        $acceptance = $this->memcached->get(md5($key.'acceptance'));    
 
         // If not, get it, then put it in memcached
         if (false == $acceptance) {
@@ -96,7 +99,7 @@ class Stories {
                 $total_completed_points += $stats['completed'];
             }
             $acceptance = ceil(($total_completed_points / $total_expected_points) * 100);    
-            $this->memcached->set(md5($last_month.'acceptance'), $acceptance);
+            $this->memcached->set(md5($key.'acceptance'), $acceptance);
         }
 
         return $acceptance;
