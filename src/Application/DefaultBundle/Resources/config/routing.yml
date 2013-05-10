@@ -2,13 +2,17 @@ application_default_homepage:
     pattern:  /
     defaults: { _controller: ApplicationDefaultBundle:Default:index }
 
+application_default_homepage_data:
+    pattern:  /data/{type}/{backlog}
+    defaults: { _controller: ApplicationDefaultBundle:Default:data, type:general-deptstats, backlog:[9248] }
+
 application_default_estimates:
     pattern:  /estimates
     defaults: { _controller: ApplicationDefaultBundle:Estimates:index }
 
 application_default_estimates_data:
     pattern:  /estimates/data/{type}/{backlog}
-    defaults: { _controller: ApplicationDefaultBundle:Estimates:data, type:estimatespread, backlog:[9248,7869,9555] }
+    defaults: { _controller: ApplicationDefaultBundle:Estimates:data, type:estimatespread, backlog:[9248,7869,9555,9862] }
 
 application_default_team_name:
     pattern:  /estimates/team/{teamname}

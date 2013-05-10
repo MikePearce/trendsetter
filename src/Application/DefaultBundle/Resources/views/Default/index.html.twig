@@ -4,62 +4,94 @@
 <div class="page-header">
   <h1>Development Trends <small>How are we performing?</small></h1>
 </div>
-<div class="row-fluid">
-  <ul class="thumbnails">
-    <li class="span4">
-      <div class="thumbnail">
-        <div class="caption-top">
-          <h3>Current velocity</h3>
-          <p class="super-large">{{current_velocity}}</p>
+<div ng-app="homePage" ng-controller="HomepageCtrl">
+  <div class="row-fluid">
+    <ul class="thumbnails">
+      <li class="span4">
+        <div class="thumbnail">
+          <div class="caption-top">
+            <h3>Current velocity</h3>
+            <p class="super-large">{[stats.deptstats.current_velocity]}</p>
+          </div>
         </div>
-      </div>
-    </li>
-    <li class="span4">
-      <div class="thumbnail">
-        <div class="caption-top">
-          <h3>Current Acceptance</h3>
-          <p class="super-large">{{current_acceptance}}<span class="smaller">%</span></p>
+      </li>
+      <li class="span4">
+        <div class="thumbnail">
+          <div class="caption-top">
+            <h3>Current Acceptance</h3>
+            <p class="super-large">{[stats.deptstats.current_acceptance]}<span class="smaller">%</span></p>
+          </div>
         </div>
-      </div>
-    </li>
-    <li class="span4">
-      <div class="thumbnail">
-          <img src="http://placekitten.com/300/217" alt="Example"/>
-      </div>
-    </li>    
-</ul>
-<div class="row-fluid">
-  <ul class="thumbnails">
-    <li class="span4">
-      <div class="thumbnail">
-          <img src="{{ 'bundles/applicationdefault/img/acceptance.png' }}" alt="Example"/>
-        <div class="caption">
-          <h3>Acceptance Rate</h3>
-          <p>The acceptance rate is the percentage of stories that the team had 'accepted' by their product owner in a sprint. If they committed to 20 points and delivered 15, they'll only have a 75% acceptance rate.<br /><br /></p>
-          <p><a href="/stories/acceptancerate" class="btn btn-primary">See more &raquo;</a>
+      </li>
+      <li class="span4">
+        <div class="thumbnail">
+          <div class="caption-top">
+            <h3>Team statistics</h3>
+            <table class="table-condensed margin-left10" width="100%">
+              <thead>
+                <tr>
+                    <th class="pull-left">Team</th>
+                    <th>Velocity</th>
+                    <th>Acceptance</th>
+                <tr>
+              </thead>
+                <td class="pull-left">Gaia</td>
+                <td>15</td>
+                <td>72%</td>
+              </tr>
+              <tr>
+                <td class="pull-left">Prime</td>
+                <td>15</td>
+                <td>72%</td>
+              </tr>
+              <tr>
+                <td class="pull-left">Raptor</td>
+                <td>15</td>
+                <td>72%</td>
+              </tr>
+              <tr>
+                <td class="pull-left">A-Team</td>
+                <td>15</td>
+                <td>72%</td>
+              </tr>
+            </table>
+            </div>
         </div>
-      </div>
-    </li>
-    <li class="span4">
-      <div class="thumbnail">
-        <img src="{{ 'bundles/applicationdefault/img/velocity.png' }}" alt="Example"/>
-        <div class="caption">
-          <h3>Velocity</h3>
-          <p>Velocity is the total number of stories points achieved each sprint. If a team committs to delivering 20 points and delivers 20, their velocity is 20. If they deliver, 20, 22, 20 in consecutive sprints, their velocity is 21</p>
-          <p><a href="/velocity" class="btn btn-primary">See more &raquo;</a>
-        </div>
-      </div>
-    </li>
-    <li class="span4">
-      <div class="thumbnail">
-        <img src="{{ 'bundles/applicationdefault/img/estimates.png' }}" alt="Example"/>
-        <div class="caption">
-          <h3>Estimates</h3>
-          <p>The estimates stats shows the number of times that each sized story was estimate on a month-by-month basis. This allows you to see trends to make sure that teams aren't estimating mostly fives, or doing any padding.</p>
-          <p><a href="/estimates" class="btn btn-primary">See more &raquo;</a>
-        </div>
-      </div>
-    </li>
+      </li>    
   </ul>
+  <div class="row-fluid">
+    <ul class="thumbnails">
+      <li class="span4">
+        <div class="thumbnail">
+            <img src="{{ 'bundles/applicationdefault/img/acceptance.png' }}" alt="Example"/>
+          <div class="caption">
+            <h3>Acceptance Rate</h3>
+            <p>The acceptance rate is the percentage of stories that the team had 'accepted' by their product owner in a sprint. If they committed to 20 points and delivered 15, they'll only have a 75% acceptance rate.<br /><br /></p>
+            <p><a href="/stories/acceptancerate" class="btn btn-primary">See more &raquo;</a>
+          </div>
+        </div>
+      </li>
+      <li class="span4">
+        <div class="thumbnail">
+          <img src="{{ 'bundles/applicationdefault/img/velocity.png' }}" alt="Example"/>
+          <div class="caption">
+            <h3>Velocity</h3>
+            <p>Velocity is the total number of stories points achieved each sprint. If a team committs to delivering 20 points and delivers 20, their velocity is 20. If they deliver, 20, 22, 20 in consecutive sprints, their velocity is 21</p>
+            <p><a href="/velocity" class="btn btn-primary">See more &raquo;</a>
+          </div>
+        </div>
+      </li>
+      <li class="span4">
+        <div class="thumbnail">
+          <img src="{{ 'bundles/applicationdefault/img/estimates.png' }}" alt="Example"/>
+          <div class="caption">
+            <h3>Estimates</h3>
+            <p>The estimates stats shows the number of times that each sized story was estimate on a month-by-month basis. This allows you to see trends to make sure that teams aren't estimating mostly fives, or doing any padding.</p>
+            <p><a href="/estimates" class="btn btn-primary">See more &raquo;</a>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
 </div>
  {% endblock %}

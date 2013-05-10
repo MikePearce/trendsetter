@@ -41,19 +41,14 @@ class Velocity {
         return $total_points_per_month;
     }
 
-    /**
-     * Return the velocity per month
-     
-     **/
-    public function getVelocity() {
-
+    public function getVelocityForGoogleVis() {
         $googleVis = new Googlevis();
         $columns = $googleVis->createColumns(
             array('Year/Month' => 'string', 'Velocity'   => 'number')
         );
 
         $total_points_per_month = $rows = array();
-        $total_points_per_month = $this->getPointsPerMonth($this->easybacklogClient->getSprints());
+        $total_points_per_month = $this->getVelocity();
 
         $rows = array();
         foreach($total_points_per_month AS $month => $points_array) {
@@ -63,8 +58,17 @@ class Velocity {
             );
         }
 
-        return array('cols' => $columns, 'rows' => $rows);
+        return array('cols' => $columns, 'rows' => $rows);   
+    }
+
+    /**
+     * Return the velocity per month
+     
+     **/
+    public function getVelocity() {
+        return $this->getPointsPerMonth($this->easybacklogClient->getSprints());
     }  
+
 
     /**
      * Get LAST months velocity

@@ -16,6 +16,10 @@
   <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.1.3/angular.min.js"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.2.0/ui-bootstrap.js"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.2.0/ui-bootstrap-tpls.js"></script>
+  {% javascripts '@ApplicationDefaultBundle/Resources/public/js/app.js'
+                 '@ApplicationDefaultBundle/Resources/public/js/filters.js' %}
+    <script src="{{ asset_url }}"></script>
+  {% endjavascripts %}
 
     <style>
       body {

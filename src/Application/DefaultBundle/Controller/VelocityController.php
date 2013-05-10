@@ -43,7 +43,7 @@ class VelocityController extends Controller
       
       switch($type) {
         case 'departmentvelocity':
-          $data = $velocity->getVelocity();
+          $data = $velocity->getVelocityForGoogleVis();
           break;
         default:
           throw new \Exception("I don't know what ". $type ."is.", 1);

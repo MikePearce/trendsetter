@@ -17,7 +17,14 @@ span.smaller {
 .caption-top {
     text-align: center;
     height: 200px;
+
 }
+.pagination, table tr {
+    cursor: hand;
+    cursor: pointer;
+}
+
+
 /*!
  * Bootstrap Responsive v2.3.1
  *

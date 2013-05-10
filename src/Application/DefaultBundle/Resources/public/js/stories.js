@@ -1,17 +1,5 @@
 google.load('visualization', '1', {packages: ['corechart']});
 
-
-function getData(backlogurl) {
-    // Get the json
-    var jsonData = $.ajax({
-            url: "/stories/data" + backlogurl,
-            dataType: "json",
-            async: false
-    }).responseText;
-
-    return jsonData;
-}
-
 function drawVisualization() {
 
     if ($('body').data('datatype') == 'acceptancerate') {
@@ -50,25 +38,7 @@ function drawVisualization() {
 }
 setTimeout(google.setOnLoadCallback(drawVisualization), 2000);
 
-// Truncate
-angular.module('filters', []).
-    filter('truncate', function () {
-        return function (text, length, end) {
-            if (isNaN(length))
-                length = 10;
- 
-            if (end === undefined)
-                end = "...";
- 
-            if (text.length <= length || text.length - end.length <= length) {
-                return text;
-            }
-            else {
-                return String(text).substring(0, length-end.length) + end;
-            }
- 
-        };
-    });
+
 
 // Angular shizzie
 var storyFilter = angular.module('storyFilter', ['ui.bootstrap', 'filters']).config(function($interpolateProvider){

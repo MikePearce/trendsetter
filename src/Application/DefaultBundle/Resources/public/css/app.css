@@ -23,4 +23,6 @@ span.smaller {
     cursor: hand;
     cursor: pointer;
 }
-
+table.margin-left10 {
+    margin-left: 10px;
+}
