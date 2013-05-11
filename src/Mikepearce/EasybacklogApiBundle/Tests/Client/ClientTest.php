@@ -58,8 +58,9 @@ class ClientClientTest extends \Guzzle\Tests\GuzzleTestCase
      **/
     public function testGetJsonFromApiReturnsJson() {
 
-        $json = $this->ebclient->getJsonFromApi('http://www.google.com');
-        $this->assertNotNull(json_decode($json));
+        $this->assertNotNull(
+            json_decode($this->ebclient->getJsonFromApi('http://www.google.com'))
+        );
         
     }
 }
