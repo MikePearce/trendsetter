@@ -88,7 +88,7 @@ class Client {
                               ->getBody();  
 
         $this->addDataToCache(md5($path), $json);
-        return $json;
+        return $this->memcached->get(md5($path));
     }
 
     /**

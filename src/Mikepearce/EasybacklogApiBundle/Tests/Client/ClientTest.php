@@ -15,16 +15,7 @@ class ClientClientTest extends \Guzzle\Tests\GuzzleTestCase
     /**
      * Create the mock clases
      **/
-    public function setup() {
-
-        // Mock memcache
-        $memcache = $this->getMock('memcache', array('get', 'set'));
-        $memcache->expects($this->any())
-                 ->method('get')
-                 ->will($this->returnValue('{"json":"rocks"}'));
-        $memcache->expects($this->any())
-                 ->method('set')
-                 ->will($this->returnValue(true));        
+    public function setup() {    
 
         // Guzzle
         $plugin = new \Guzzle\Plugin\Mock\MockPlugin();
@@ -34,12 +25,21 @@ class ClientClientTest extends \Guzzle\Tests\GuzzleTestCase
         $this->setMockBasePath(__DIR__ . DIRECTORY_SEPARATOR . '../TestData');
         $this->setMockResponse($mockedClient, 'json_response');
 
+        // Mock memcache
+        $memcache = $this->getMock('memcache', array('get', 'set'));
+        $memcache->expects($this->any())
+                 ->method('get')
+                 ->will($this->returnValue('{"json":"rocks"}'));
+        $memcache->expects($this->any())
+                 ->method('set')
+                 ->will($this->returnValue($this->getMockResponse('json_response')));         
+
         $this->ebclient = new Client(
             $memcache, 
             $mockedClient, 
             'xxxxxxxxxx', 
             '123'
-        );
+        );                 
     }
 
     /**
@@ -49,18 +49,29 @@ class ClientClientTest extends \Guzzle\Tests\GuzzleTestCase
     public function testSetBacklogReturnsObject()
     {   
         
-        $ebclient = $this->ebclient->setBacklog(array('0'))->setBacklog('123');
+        $ebclient = $this->ebclient->setBacklog(array('0'))
+                                   ->setBacklog('123');
         $this->assertInstanceOf('Mikepearce\EasybacklogApiBundle\Client\Client', $ebclient);
     }
 
     /**
      * @covers Mikepearce\EasybacklogApiBundle\Client\Client\getJsonFromApi
+     * @covers Mikepearce\EasybacklogApiBundle\Client\Client\addDataToCache
      **/
     public function testGetJsonFromApiReturnsJson() {
 
         $this->assertNotNull(
             json_decode($this->ebclient->getJsonFromApi('http://www.google.com'))
         );
-        
     }
+
+    /**
+     * @covers Mikepearce\EasybacklogApiBundle\Client\Client\getJsonFromApi
+     **/
+    public function testGetDataApiData() {
+        $this->assertNotNull(
+            json_decode($this->ebclient->getJsonFromApi('http://www.google.com'))
+        );  
+    }
+
 }
