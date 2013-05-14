@@ -71,5 +71,19 @@ class ClientClientTest extends \Guzzle\Tests\GuzzleTestCase
             json_decode($this->ebclient->getJsonFromApi('http://www.google.com'))
         );  
     }
+    
+    /**
+     * @covers Mikepearce\EasybacklogApiBindle\Client\Client\getThemes(true);
+     * @covers Mikepearce\EasybacklogApiBindle\Client\Client\getThemes(false);
+     */
+    public function testGetThemes() {
+        $this->ebclient->setBacklog(rand(1, 202323));
+        $this->assertTrue(
+            is_array($this->ebclient->getThemes())
+        );
+        $this->assertTrue(
+            is_array($this->ebclient->getThemes(true))
+        );
+    }
 
 }

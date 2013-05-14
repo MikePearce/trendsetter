@@ -4,4 +4,4 @@ Connection: close
 Server: AmazonS3
 Content-Type: application/json
 
-{"json":"rocks my socks off"}
+{"json":"rocks my socks off", "date":"2013/01/01 00:00:01"}

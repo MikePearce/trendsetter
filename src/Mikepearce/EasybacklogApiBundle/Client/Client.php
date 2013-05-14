@@ -113,7 +113,7 @@ class Client {
 
             $data = json_decode($json, true);
 
-            if ($data['date'] <= strtotime('-24 hours')) {
+            if (isset($data['date']) AND $data['date'] <= strtotime('-24 hours')) {
                 $json =  $this->getJsonFromApi($path);
             }
     
