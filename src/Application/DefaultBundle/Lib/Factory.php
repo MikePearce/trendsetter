@@ -8,7 +8,7 @@ Use Application\DefaultBundle\Lib\Estimates;
 Use Application\DefaultBundle\Lib\Stories;
 
 /**
- * Description of Factory
+ * Generates the data, huzzah!
  *
  * @author Mike Pearce <mike@mikepearce.net>
  */
@@ -147,5 +147,3 @@ class Factory extends ContainerAware {
        return $data;
     }
 }
-
-?>

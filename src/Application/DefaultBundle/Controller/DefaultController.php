@@ -5,9 +5,6 @@ namespace Application\DefaultBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Application\DefaultBundle\Lib\Factory;
-use Application\DefaultBundle\Lib\Velocity;
-use Application\DefaultBundle\Lib\Estimates;
-use Application\DefaultBundle\Lib\Stories;
 
 class DefaultController extends Controller
 {    
