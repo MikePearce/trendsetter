@@ -29,7 +29,6 @@ class DefaultController extends Controller
       $easybacklogClient = $this->get('mikepearce_easybacklog_api');
       $easybacklogClient->setAccountId('477')
                         ->setBacklog($backlog);
-      
       // This switch feeds all the data, maybe there is a better way of doing this...
       switch($type) {
         // Homepage
