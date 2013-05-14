@@ -1,8 +1,6 @@
 <?php
 
 namespace Mikepearce\EasybacklogApiBundle\Tests\Controller;
-
-use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Mikepearce\EasybacklogApiBundle\Client\Client;
 
 class ClientClientTest extends \Guzzle\Tests\GuzzleTestCase

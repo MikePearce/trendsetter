@@ -18,8 +18,8 @@ var homePage = angular.module('homePage', ['ui.bootstrap', 'filters']).config(fu
 
 homePage.factory('Stats', function() {
     var Stats = {};
-    Stats.teamstats = angular.fromJson(getData('/data/general-teamstats'));
-    Stats.deptstats = angular.fromJson(getData('/data/general-deptstats'));
+    Stats.teamstats = angular.fromJson(getData('/data/teamstats'));
+    Stats.deptstats = angular.fromJson(getData('/data/deptstats'));
     return Stats;
 });
 

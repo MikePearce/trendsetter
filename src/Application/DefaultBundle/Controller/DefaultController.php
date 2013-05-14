@@ -3,10 +3,11 @@
 namespace Application\DefaultBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Application\DefaultBundle\Lib\Stories;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Application\DefaultBundle\Lib\Factory;
 use Application\DefaultBundle\Lib\Velocity;
 use Application\DefaultBundle\Lib\Estimates;
-use Symfony\Component\HttpFoundation\JsonResponse;
+use Application\DefaultBundle\Lib\Stories;
 
 class DefaultController extends Controller
 {    
@@ -29,86 +30,21 @@ class DefaultController extends Controller
      * @return response object
      **/
     public function dataAction($type, $backlog = false, $storyid = 0) {
-
-      $easybacklogClient = $this->get('mikepearce_easybacklog_api');
-      $easybacklogClient->setAccountId('477')
-                        ->setBacklog($backlog);
-      // This switch feeds all the data, maybe there is a better way of doing this...
-      switch($type) {
-        // Homepage
-        case 'general-deptstats':
-            $vel = new Velocity($easybacklogClient, $this->get('memcached'));
-            $str = new Stories($easybacklogClient, $this->get('memcached'));
-            $data = array(
-                'current_velocity'      => $vel->getCurrentVelocity(),
-                'current_acceptance'    => $str->getCurrentAcceptanceRate(),
-            );
-            break;
-        case 'general-teamstats':
-            $vel = new Velocity($easybacklogClient, $this->get('memcached'));
-            $stories = new Stories($easybacklogClient, $this->get('memcached'));
-            $data = array();
-            foreach($this->container->getParameter('teams') AS $team) {
-                $easybacklogClient->setBacklog($team['backlog']);
-                $counter = $totalpoints = 0;
-                // Velocity
-                foreach($vel->getCurrentTeamVelocity($team['backlog']) AS $months) {
-                    $counter += count($months);
-                    $totalpoints += array_sum($months);
-                }
-
-                $data[$team['backlog']] = array(
-                  'name' => $team['name'], 
-                  'velocity' => ceil($totalpoints / $counter),
-                  'acceptance' => $stories->getCurrentAcceptanceRate($team['backlog'])
-                );
-
-                
-            }
-            break;
+        $easybacklogClient = $this->get('mikepearce_easybacklog_api');
+        $easybacklogClient->setAccountId('477')
+                          ->setBacklog($backlog);
         
-        // Story stuff
-        case 'story-single':
-              $stories = new Stories($easybacklogClient);
-              $data = $stories->getSingleStory($storyid);
-            break;
-        case 'backlogtotalstoriespermonth':
-              $estimates = new Estimates($easybacklogClient);
-              $data = $estimates->gettotalStoriesPerMonth();
-            break;
-        case 'acceptancerate':
-              $stories = new Stories($easybacklogClient);
-              $data = $stories->getAcceptanceRateForGoogleVis();
-            break;
-        case 'stories':
-              $stories = new Stories($easybacklogClient);
-              $data = $stories->getStoriesByBacklog();
-            break;  
+        // Get the data
+        $factory = new Factory(
+            $easybacklogClient, 
+            $this->get('memcached'), 
+            $this->container->getParameter('teams')
+        );
 
-        // Estimate stuff
-        case 'backlogestimatespread':
-              $estimates = new Estimates($easybacklogClient);
-              $data = $estimates->getEstimateSpreadPerMonth();
-            break;
-        case 'totalstoriespermonth':
-            $estimates = new Estimates($easybacklogClient);
-            $data = $estimates->gettotalStoriesPerMonth();
-            break;
-
-        // Velocity
-        case 'departmentvelocity':
-            $velocity = new Velocity($easybacklogClient);
-            $data = $velocity->getVelocityForGoogleVis();
-            break;
-        default:
-          throw new \Exception("I don't know what ". $type ."is.", 1);
-          
-      }
-
-      $response = new JsonResponse();
-      $response->setData($data);
-      $response->headers->set('Content-Type', 'application/json');
-      return $response;
+        $response = new JsonResponse();
+        $response->setData($factory->getData($type, $storyid));
+        $response->headers->set('Content-Type', 'application/json');
+        return $response;
     }
 
 }

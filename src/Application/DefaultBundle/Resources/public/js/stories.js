@@ -68,7 +68,7 @@ var BacklogCtrl = function($scope, Backlog) {
     // Modal
     $scope.open = function (storyid) {
         $scope.shouldBeOpen = true;
-        $scope.story = angular.fromJson(getData('/data/story-single/' + $('body').data('backlog') + '/' + storyid));
+        $scope.story = angular.fromJson(getData('/data/story/' + $('body').data('backlog') + '/' + storyid));
     };
 
     $scope.close = function () {
