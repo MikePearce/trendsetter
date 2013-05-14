@@ -85,5 +85,19 @@ class ClientClientTest extends \Guzzle\Tests\GuzzleTestCase
             is_array($this->ebclient->getThemes(true))
         );
     }
+    
+    /**
+     * @covers Mikepearce\EasybacklogApiBindle\Client\Client\getThemes(true);
+     * @covers Mikepearce\EasybacklogApiBindle\Client\Client\getThemes(false);
+     */
+    public function testGetSprints() {
+        $this->ebclient->setBacklog(rand(1, 202323));
+        $this->assertTrue(
+            is_array($this->ebclient->getSprints())
+        );
+        $this->assertTrue(
+            is_array($this->ebclient->getSprints(true))
+        );
+    }    
 
 }
