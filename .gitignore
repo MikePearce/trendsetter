@@ -17,3 +17,5 @@ mkmf.log
 backups/*
 .project
 .idea
+/nbproject/private/nbproject/
+nbproject

@@ -12,12 +12,16 @@ class DefaultController extends Controller
 {    
     public function indexAction()
     {        
-        return $this->render('ApplicationDefaultBundle:Default:index.html.twig');
+        return $this->render(
+        'ApplicationDefaultBundle:Default:index.html.twig'
+        );
     }
 
     public function fullscreenAction()
     {        
-        return $this->render('ApplicationDefaultBundle:Default:fullscreen.html.twig');
+        return $this->render(
+            'ApplicationDefaultBundle:Default:fullscreen.html.twig'
+        );
     }
 
     /**
