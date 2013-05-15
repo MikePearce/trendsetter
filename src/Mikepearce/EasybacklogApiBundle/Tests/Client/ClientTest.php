@@ -76,6 +76,7 @@ class ClientClientTest extends \Guzzle\Tests\GuzzleTestCase
     /**
      * @covers Mikepearce\EasybacklogApiBindle\Client\Client\getThemes(true);
      * @covers Mikepearce\EasybacklogApiBindle\Client\Client\getThemes(false);
+     * @covers Mikepearce\EasybacklogApiBindle\Client\Client\loopBacklogs;
      */
     public function testGetThemes() {
         $this->ebclient->setBacklog(rand(1, 202323));
@@ -90,6 +91,7 @@ class ClientClientTest extends \Guzzle\Tests\GuzzleTestCase
     /**
      * @covers Mikepearce\EasybacklogApiBindle\Client\Client\getThemes(true);
      * @covers Mikepearce\EasybacklogApiBindle\Client\Client\getThemes(false);
+     * @covers Mikepearce\EasybacklogApiBindle\Client\Client\loopBacklogs;
      */
     public function testGetSprints() {
         $this->ebclient->setBacklog(rand(1, 202323));
@@ -103,6 +105,7 @@ class ClientClientTest extends \Guzzle\Tests\GuzzleTestCase
     
     /**
      * @covers Mikepearce\EasybacklogApiBindle\Client\Client\getVelocityStats();
+     * @covers Mikepearce\EasybacklogApiBindle\Client\Client\loopBacklogs;
      */
     public function testGetVelocityStats() {
         $this->ebclient->setBacklog(rand(1, 202323));
@@ -116,4 +119,14 @@ class ClientClientTest extends \Guzzle\Tests\GuzzleTestCase
             'velocity_complete', $this->ebclient->getVelocityStats()
         );
     }   
+    
+    /**
+     * @covers Mikepearce\EasybacklogApiBindle\Client\Client\getStoriesFromTheme;
+     */
+    public function testGetStoriesFromTheme() {
+        $this->asserTrue(
+            is_array($this->ebclient->getStoriesFromTheme())
+        );
+        
+    }
 }
