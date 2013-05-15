@@ -1,7 +1,7 @@
 HTTP/1.1 200 OK
 Date: Wed, 25 Nov 2009 12:00:00 GMT
 Connection: close
-Server: AmazonS3
+Server: YoMomma
 Content-Type: application/json
 
-{"json":"rocks my socks off", "date":"2013/01/01 00:00:01"}
+{"velocity_stats":"yyy", "velocity_completed":"xxx"}

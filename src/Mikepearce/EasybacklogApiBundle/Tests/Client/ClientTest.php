@@ -22,15 +22,16 @@ class ClientClientTest extends \Guzzle\Tests\GuzzleTestCase
         $mockedClient->addSubscriber($plugin);
         $this->setMockBasePath(__DIR__ . DIRECTORY_SEPARATOR . '../TestData');
         $this->setMockResponse($mockedClient, 'json_response');
-
+        
         // Mock memcache
+        $json_string = trim($this->getMockResponse('json_response')->getBody());
         $memcache = $this->getMock('memcache', array('get', 'set'));
         $memcache->expects($this->any())
                  ->method('get')
-                 ->will($this->returnValue('{"json":"rocks"}'));
+                 ->will($this->returnValue($json_string));
         $memcache->expects($this->any())
                  ->method('set')
-                 ->will($this->returnValue($this->getMockResponse('json_response')));         
+                 ->will($this->returnValue(true));
 
         $this->ebclient = new Client(
             $memcache, 
@@ -99,5 +100,20 @@ class ClientClientTest extends \Guzzle\Tests\GuzzleTestCase
             is_array($this->ebclient->getSprints(true))
         );
     }    
-
+    
+    /**
+     * @covers Mikepearce\EasybacklogApiBindle\Client\Client\getVelocityStats();
+     */
+    public function testGetVelocityStats() {
+        $this->ebclient->setBacklog(rand(1, 202323));
+        $this->assertTrue(
+            is_array($this->ebclient->getVelocityStats())
+        );
+        $this->assertArrayHasKey(
+            'velocity_stats', $this->ebclient->getVelocityStats()
+        );
+        $this->assertArrayHasKey(
+            'velocity_complete', $this->ebclient->getVelocityStats()
+        );
+    }   
 }
