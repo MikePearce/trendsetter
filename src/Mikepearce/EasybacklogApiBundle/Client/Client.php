@@ -210,7 +210,6 @@ class Client {
         
         $stories = array();
         foreach ($this->getThemes(true) AS $theme) {
-
             if (is_array($theme['stories'])) {
                 $stories = array_merge($stories, $theme['stories']);    
             }

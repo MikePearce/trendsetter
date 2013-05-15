@@ -11,34 +11,41 @@ class ClientClientTest extends \Guzzle\Tests\GuzzleTestCase
     public $ebclient;
     
     /**
-     * Create the mock clases
+     * Do some setup
      **/
     public function setup() {    
 
         // Guzzle
         $plugin = new \Guzzle\Plugin\Mock\MockPlugin();
         $plugin->addResponse(new \Guzzle\Http\Message\Response(200));
-        $mockedClient = new \Guzzle\Service\Client();
-        $mockedClient->addSubscriber($plugin);
+        $this->mockedClient = new \Guzzle\Service\Client();
+        $this->mockedClient->addSubscriber($plugin);
         $this->setMockBasePath(__DIR__ . DIRECTORY_SEPARATOR . '../TestData');
-        $this->setMockResponse($mockedClient, 'json_response');
+         
+    }
+    
+    /**
+     * Create the mock object
+     * @param string $response_file
+     */
+    public function getMocks($response_file = 'json_response') {
+        $this->setMockResponse($this->mockedClient, $response_file);
         
         // Mock memcache
-        $json_string = trim($this->getMockResponse('json_response')->getBody());
         $memcache = $this->getMock('memcache', array('get', 'set'));
         $memcache->expects($this->any())
                  ->method('get')
-                 ->will($this->returnValue($json_string));
+                 ->will($this->returnValue($this->getMockResponse($response_file)->getBody()));
         $memcache->expects($this->any())
                  ->method('set')
                  ->will($this->returnValue(true));
 
         $this->ebclient = new Client(
             $memcache, 
-            $mockedClient, 
+            $this->mockedClient, 
             'xxxxxxxxxx', 
             '123'
-        );                 
+        );                
     }
 
     /**
@@ -47,7 +54,7 @@ class ClientClientTest extends \Guzzle\Tests\GuzzleTestCase
      **/
     public function testSetBacklogReturnsObject()
     {   
-        
+        $this->getMocks();
         $ebclient = $this->ebclient->setBacklog(array('0'))
                                    ->setBacklog('123');
         $this->assertInstanceOf('Mikepearce\EasybacklogApiBundle\Client\Client', $ebclient);
@@ -58,7 +65,8 @@ class ClientClientTest extends \Guzzle\Tests\GuzzleTestCase
      * @covers Mikepearce\EasybacklogApiBundle\Client\Client\addDataToCache
      **/
     public function testGetJsonFromApiReturnsJson() {
-
+        
+        $this->getMocks();
         $this->assertNotNull(
             json_decode($this->ebclient->getJsonFromApi('http://www.google.com'))
         );
@@ -68,6 +76,8 @@ class ClientClientTest extends \Guzzle\Tests\GuzzleTestCase
      * @covers Mikepearce\EasybacklogApiBundle\Client\Client\getJsonFromApi
      **/
     public function testGetDataApiData() {
+        
+        $this->getMocks();
         $this->assertNotNull(
             json_decode($this->ebclient->getJsonFromApi('http://www.google.com'))
         );  
@@ -79,6 +89,7 @@ class ClientClientTest extends \Guzzle\Tests\GuzzleTestCase
      * @covers Mikepearce\EasybacklogApiBindle\Client\Client\loopBacklogs;
      */
     public function testGetThemes() {
+        $this->getMocks();
         $this->ebclient->setBacklog(rand(1, 202323));
         $this->assertTrue(
             is_array($this->ebclient->getThemes())
@@ -94,6 +105,7 @@ class ClientClientTest extends \Guzzle\Tests\GuzzleTestCase
      * @covers Mikepearce\EasybacklogApiBindle\Client\Client\loopBacklogs;
      */
     public function testGetSprints() {
+        $this->getMocks();
         $this->ebclient->setBacklog(rand(1, 202323));
         $this->assertTrue(
             is_array($this->ebclient->getSprints())
@@ -108,6 +120,7 @@ class ClientClientTest extends \Guzzle\Tests\GuzzleTestCase
      * @covers Mikepearce\EasybacklogApiBindle\Client\Client\loopBacklogs;
      */
     public function testGetVelocityStats() {
+        $this->getMocks();
         $this->ebclient->setBacklog(rand(1, 202323));
         $this->assertTrue(
             is_array($this->ebclient->getVelocityStats())
@@ -124,7 +137,9 @@ class ClientClientTest extends \Guzzle\Tests\GuzzleTestCase
      * @covers Mikepearce\EasybacklogApiBindle\Client\Client\getStoriesFromTheme;
      */
     public function testGetStoriesFromTheme() {
-        $this->asserTrue(
+        $this->getMocks('json_response_themes');
+        $this->ebclient->setBacklog(rand(1, 202323));
+        $this->assertTrue(
             is_array($this->ebclient->getStoriesFromTheme())
         );
         
