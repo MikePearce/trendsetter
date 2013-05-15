@@ -71,7 +71,7 @@ class Estimates {
      **/
     public function gettotalStoriesPerMonth() {
       $googleVis = new Googlevis();
-      $columns = $googleVis->createColumns(array('Year/Month'     => 'string', 'No. of Stories'   => 'number'));
+      $columns = $googleVis->createColumns(array('Year/Month' => 'string', 'No. of Stories' => 'number'));
 
         $estimate_data = $this->getEstimateDataByMonth(
           $this->easybacklogClient->getStoriesFromTheme()
