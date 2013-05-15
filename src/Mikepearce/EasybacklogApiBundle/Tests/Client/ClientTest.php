@@ -144,4 +144,16 @@ class ClientClientTest extends \Guzzle\Tests\GuzzleTestCase
         );
         
     }
+    
+    /**
+     * @covers Mikepearce\EasybacklogApiBindle\Client\Client\getStoriesFromTheme;
+     */
+    public function testGetStory() {
+        $this->getMocks('json_response_themes');
+        $this->ebclient->setBacklog(rand(1, 202323));
+        $this->assertTrue(
+            is_array($this->ebclient->getStory(rand(1, 202323)))
+        );
+        
+    }    
 }
