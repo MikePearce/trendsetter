@@ -196,8 +196,13 @@ class Client {
         $data = array();
         foreach($this->backlogs AS $backlog_id) {
             $data = array_merge($data, $this->getDataApiData(
-                str_replace(array('{backlogid}', '{accountid}'), array($backlog_id, $this->accountid), $path
-            )));
+                    str_replace(
+                        array('{backlogid}', '{accountid}'), 
+                        array($backlog_id, $this->accountid), 
+                        $path
+                   )
+                )
+               );
         }
         return $data;
     }
@@ -208,7 +213,7 @@ class Client {
      **/
     public function getStoriesFromTheme() {
         
-        $stories = array();
+        $stories = array();                          
         foreach ($this->getThemes(true) AS $theme) {
             if (is_array($theme['stories'])) {
                 $stories = array_merge($stories, $theme['stories']);    
