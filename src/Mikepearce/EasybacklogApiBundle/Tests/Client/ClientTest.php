@@ -5,14 +5,8 @@ use Mikepearce\EasybacklogApiBundle\Client\Client;
 
 class ClientClientTest extends \Guzzle\Tests\GuzzleTestCase
 {
-    /**
-     * What we're testing
-     **/
     public $ebclient;
     
-    /**
-     * Do some setup
-     **/
     public function setup() {    
 
         // Guzzle
@@ -48,10 +42,6 @@ class ClientClientTest extends \Guzzle\Tests\GuzzleTestCase
         );                
     }
 
-    /**
-     * @covers Mikepearce\EasybacklogApiBundle\Client\Client\setBacklog
-     * @covers Mikepearce\EasybacklogApiBundle\Client\Client\setAccountId
-     **/
     public function testSetBacklogReturnsObject() {   
         $this->getMocks();
         $ebclient = $this->ebclient->setBacklog(array('0'))
@@ -59,10 +49,6 @@ class ClientClientTest extends \Guzzle\Tests\GuzzleTestCase
         $this->assertInstanceOf('Mikepearce\EasybacklogApiBundle\Client\Client', $ebclient);
     }
 
-    /**
-     * @covers Mikepearce\EasybacklogApiBundle\Client\Client\getJsonFromApi
-     * @covers Mikepearce\EasybacklogApiBundle\Client\Client\addDataToCache
-     **/
     public function testGetJsonFromApiReturnsJson() {
         $this->getMocks();
         $this->assertNotNull(
@@ -70,9 +56,6 @@ class ClientClientTest extends \Guzzle\Tests\GuzzleTestCase
         );
     }
 
-    /**
-     * @covers Mikepearce\EasybacklogApiBundle\Client\Client\getJsonFromApi
-     **/
     public function testGetDataApiData() {
         $this->getMocks();
         $this->assertNotNull(
@@ -80,11 +63,6 @@ class ClientClientTest extends \Guzzle\Tests\GuzzleTestCase
         );  
     }
     
-    /**
-     * @covers Mikepearce\EasybacklogApiBindle\Client\Client\getThemes(true);
-     * @covers Mikepearce\EasybacklogApiBindle\Client\Client\getThemes(false);
-     * @covers Mikepearce\EasybacklogApiBindle\Client\Client\loopBacklogs;
-     */
     public function testGetThemes() {
         $this->getMocks('json_response_themes');
         $this->ebclient->setBacklog(rand(1, 202323));
@@ -96,11 +74,6 @@ class ClientClientTest extends \Guzzle\Tests\GuzzleTestCase
         );
     }
     
-    /**
-     * @covers Mikepearce\EasybacklogApiBindle\Client\Client\getThemes(true);
-     * @covers Mikepearce\EasybacklogApiBindle\Client\Client\getThemes(false);
-     * @covers Mikepearce\EasybacklogApiBindle\Client\Client\loopBacklogs;
-     */
     public function testGetSprints() {
         $this->getMocks('json_response_sprints');
         $this->ebclient->setBacklog(rand(1, 202323));
@@ -112,10 +85,6 @@ class ClientClientTest extends \Guzzle\Tests\GuzzleTestCase
         );
     }    
     
-    /**
-     * @covers Mikepearce\EasybacklogApiBindle\Client\Client\getVelocityStats();
-     * @covers Mikepearce\EasybacklogApiBindle\Client\Client\loopBacklogs;
-     */
     public function testGetVelocityStats() {
         $this->getMocks('json_response_stats');
         $this->ebclient->setBacklog(rand(1, 202323));
@@ -130,9 +99,6 @@ class ClientClientTest extends \Guzzle\Tests\GuzzleTestCase
         );
     }   
     
-    /**
-     * @covers Mikepearce\EasybacklogApiBindle\Client\Client\getStoriesFromTheme;
-     */
     public function testGetStoriesFromTheme() {
         $this->getMocks('json_response_themes');
         $this->ebclient->setBacklog(rand(1, 202323));
@@ -142,9 +108,6 @@ class ClientClientTest extends \Guzzle\Tests\GuzzleTestCase
         
     }
     
-    /**
-     * @covers Mikepearce\EasybacklogApiBindle\Client\Client\getStory;
-     */
     public function testGetStory() {
         $this->getMocks('json_response_themes');
         $this->ebclient->setBacklog(rand(1, 202323));
