@@ -1,10 +1,13 @@
 <?php
 
-namespace Application\DefaultBundle\Tests\Lib\VelocityTest;
+namespace Application\DefaultBundle\Tests\Lib\StoriesTest;
 use Application\DefaultBundle\Tests\SetupTests;
 
-class VelocityTest extends SetupTests
+class StoriesTest extends SetupTests
 {
+    public $stories;
+    public $ebclient;
+    
     public function testGetMonthlyAcceptance() {
         $this->getMocks('json_response_sprints');
         $this->ebclient->setBacklog(array('0'));
