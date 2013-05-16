@@ -28,7 +28,8 @@ class Estimates {
         $aggEstimates = array();
         foreach($stories AS $story) {
 
-            // Grab the date of the story and put it into a [year][month][estimate] = counter
+            // Grab the date of the story and put it into a 
+            // [year][month][estimate] = counter
             list($year, $month, $dayTime) = explode("-", $story['created_at']);
 
             // Does the year exist?
@@ -48,8 +49,6 @@ class Estimates {
             
         }
 
-        // Now sort it nicely (Does this need to be done)
-        // Now, sort the honkin bitches.
         $new = $aggEstimates;
         $aggEstimates = array();
         foreach($new AS $year => $month) {
@@ -71,7 +70,9 @@ class Estimates {
      **/
     public function gettotalStoriesPerMonth() {
       $googleVis = new Googlevis();
-      $columns = $googleVis->createColumns(array('Year/Month' => 'string', 'No. of Stories' => 'number'));
+      $columns = $googleVis->createColumns(
+          array('Year/Month' => 'string', 'No. of Stories' => 'number')
+      );
 
         $estimate_data = $this->getEstimateDataByMonth(
           $this->easybacklogClient->getStoriesFromTheme()
@@ -116,11 +117,7 @@ class Estimates {
           'Size: 20'  => 'number'
         )
       );
-      
-      // Do the data
-      $rows = array();
-      
-      
+            
       $estimate_data = $this->getEstimateDataByMonth(
           $this->easybacklogClient->getStoriesFromTheme()
       );
@@ -129,7 +126,6 @@ class Estimates {
       $rows = array();
       foreach($estimate_data AS $year => $month) {
         foreach($month AS $month_no => $estimates) {
-  //        $row_label = array(array('v' => $year ."/". $month_no, 'f' => null));
           foreach (array(1, 2, 3, 5, 8, 13, 20) AS $est) {
             $row_data[] = (isset($estimates[$est]) ? $estimates[$est] : 0);
           }
@@ -138,8 +134,6 @@ class Estimates {
             $year ."/". $month_no,
             $row_data
           );
-          //$row['c'] = array_merge($row_label, $row_data);
-          //$rows[] = $row;
           $row = $row_label = $row_data = array();
         }
         
