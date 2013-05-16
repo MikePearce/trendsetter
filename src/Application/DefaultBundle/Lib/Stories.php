@@ -85,10 +85,10 @@ class Stories {
 
         $last_month = date("Y/m", strtotime("-1 month"));
 
-        $key =  (false != $backlogid) ? $backlogid : $last_month;
-            
+        $key =  (false != $backlogid) ? $backlogid : $last_month;    
+        
         $acceptance = $this->memcached->get(md5($key.'acceptance'));    
-
+        
         // If not, get it, then put it in memcached
         if (false == $acceptance) {
             $stats_array = $this->getMonthlyAcceptance($this->easybacklogClient->getSprints());
