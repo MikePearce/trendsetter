@@ -30,6 +30,7 @@ class Velocity {
      **/
     private function getPointsPerMonth($sprint_data) {
 
+        $total_points_per_month = $monthly_velocity = array();
         foreach($sprint_data AS $sprint) {
 
             if (false == $sprint['completed?']) continue;
@@ -42,7 +43,6 @@ class Velocity {
 
         // Now look through and make it fun
         ksort($total_points_per_month);
-
         return $total_points_per_month;
     }
 
@@ -72,17 +72,18 @@ class Velocity {
 
     /**
      * Differs from getCurrentVelocity in that it isn't last months, it's the last four sprints
-     * @return int
+     * @return array
      */
     public function getCurrentTeamVelocity($backlogid) {
         $velocity = $this->memcached->get(md5($backlogid.'velocity'));
 
         // Not in memcache, so let's get it.
         if (false == $velocity) {
-            $tppm = $this->getPointsPerMonth($this->easybacklogClient->getSprints());
+            $velocity = $this->getPointsPerMonth($this->easybacklogClient->getSprints());
+            $this->memcached->set(md5($backlogid.'velocity'), $velocity);
         }
-
-        return array_slice($tppm, -4);
+        
+        return array_slice((array) $velocity, -4);
 
     }
 

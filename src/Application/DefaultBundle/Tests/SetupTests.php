@@ -51,5 +51,6 @@ class SetupTests extends \Guzzle\Tests\GuzzleTestCase
         
         $this->stories = new Stories($this->ebclient, $this->memcache);
         $this->estimates = new Estimates($this->ebclient, $this->memcache);
+        $this->velocity = new Velocity($this->ebclient, $this->memcache);
     }   
 }

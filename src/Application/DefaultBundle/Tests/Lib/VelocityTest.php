@@ -1,17 +1,17 @@
 <?php
 
-namespace Application\DefaultBundle\Tests\Lib\StoriesTest;
+namespace Application\DefaultBundle\Tests\Lib\VelocityTest;
 use Application\DefaultBundle\Tests\SetupTests;
 
-class StoriesTest extends SetupTests
+class VelocityTest extends SetupTests
 {
-    public $stories;
+    public $velocity;
     public $ebclient;
     
-    public function testGetMonthlyAcceptance() {
+    public function testgetVelocityForGoogleVis() {
         $this->getMocks('json_response_sprints');
         $this->ebclient->setBacklog(array('0'));
-        $testable = $this->stories->getAcceptanceRateForGoogleVis();
+        $testable = $this->velocity->getVelocityForGoogleVis();
         $this->assertTrue(is_array($testable)); 
          // Check the array looks like it should
         $this->assertTrue(count($testable) == 2);
@@ -20,23 +20,17 @@ class StoriesTest extends SetupTests
         $this->assertArrayHasKey('label', $testable['cols'][0]);
     }
     
-    public function testGetCurrentAcceptanceRate() {
-        $this->getMocks('json_response_sprints', 1);
-        $testable = $this->stories->getCurrentAcceptanceRate();
-        $this->assertTrue(is_int($testable)); 
-    }    
-    
-    public function testGetStoriesByBacklog() {
-        $this->getMocks('json_response_themes');
+    public function testgetCurrentTeamVelocity() {
+        $this->getMocks('json_response_sprints');
         $this->ebclient->setBacklog(array('0'));
-        $testable = $this->stories->getStoriesByBacklog();
-        $this->assertTrue(is_array($testable));
+        $testable = $this->velocity->getCurrentTeamVelocity(1);
+        $this->assertTrue(is_array($testable)); 
     }
     
-    public function testGetSingleStory() {
-        $this->getMocks('json_response_themes');
+    public function testGetCurrentVelocity() {
+        $this->getMocks('json_response_sprints', 1);
         $this->ebclient->setBacklog(array('0'));
-        $testable = $this->stories->getStoriesByBacklog();
-        $this->assertTrue(is_array($testable));
+        $testable = $this->velocity->getCurrentVelocity();
+        $this->assertTrue(is_int($testable)); 
     }    
 }
