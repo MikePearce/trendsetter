@@ -4,7 +4,7 @@ namespace Application\DefaultBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Application\DefaultBundle\Lib\Factory;
+use Application\DefaultBundle\Lib\Observer;
 
 class DefaultController extends Controller
 {    
@@ -32,14 +32,14 @@ class DefaultController extends Controller
                           ->setBacklog($backlog);
         
         // Get the data
-        $factory = new Factory(
+        $observer = new Observer(
             $easybacklogClient, 
             $this->get('memcached'), 
             $this->container->getParameter('teams')
         );
 
         $response = new JsonResponse();
-        $response->setData($factory->getData($type, $storyid));
+        $response->setData($observer->getData($type, $storyid));
         $response->headers->set('Content-Type', 'application/json');
         return $response;
     }

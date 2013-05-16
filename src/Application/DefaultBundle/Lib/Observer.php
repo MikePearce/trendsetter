@@ -12,7 +12,7 @@ Use Application\DefaultBundle\Lib\Stories;
  *
  * @author Mike Pearce <mike@mikepearce.net>
  */
-class Factory extends ContainerAware {
+class Observer extends ContainerAware {
     
     /**
      * 
