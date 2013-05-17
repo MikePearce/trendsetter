@@ -18,7 +18,7 @@ class DefaultController extends Controller
 
     public function fullscreenAction()
     {       
-        $fullscreen = new FullScreencreen($this->get('memcached'));
+        $fullscreen = new FullScreen($this->get('memcached'));
         $fullscreen->getAwinBlog();
         
         return $this->render(
