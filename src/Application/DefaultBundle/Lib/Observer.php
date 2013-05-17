@@ -45,7 +45,7 @@ class Observer extends ContainerAware {
     }
     
     public function fullscreen() {
-        $fullscreen = new Fullscreen($this->memcached);
+        $fullscreen = new FullScreen($this->memcached);
         return $fullscreen->getData();
     }
     
