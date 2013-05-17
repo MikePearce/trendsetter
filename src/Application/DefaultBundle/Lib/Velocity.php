@@ -71,7 +71,7 @@ class Velocity {
     }
 
     /**
-     * Differs from getCurrentVelocity in that it isn't last months, it's the last four sprints
+     * Differs from getCurrentVelocity in that it isn't last months, it's the last six sprints
      * @return array
      */
     public function getCurrentTeamVelocity($backlogid) {
@@ -83,7 +83,7 @@ class Velocity {
             $this->memcached->set(md5($backlogid.'velocity'), $velocity);
         }
         
-        return array_slice((array) $velocity, -4);
+        return array_slice((array)$velocity, -6);
 
     }
 

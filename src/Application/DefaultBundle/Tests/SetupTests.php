@@ -24,7 +24,9 @@ class SetupTests extends \Guzzle\Tests\GuzzleTestCase
     
     /**
      * Create the mock object
-     * @param string $response_file
+     * @param mixed $response_file - Remember, these should be in the order they
+     *                               need to be called if an array
+     * @param mixed $memcache_value
      */
     public function getMocks($response_file = 'json_response', $memcache_value = false) {
         $this->setMockResponse($this->mockedClient, $response_file);
@@ -33,8 +35,7 @@ class SetupTests extends \Guzzle\Tests\GuzzleTestCase
         $this->memcache = $this->getMock('memcache', array('get', 'set'));
         $memcache_value = ($memcache_value 
                             ? $memcache_value 
-                            : $this->getMockResponse($response_file)->getBody()
-                          );
+                            : $this->getMockResponse($response_file)->getBody());
         $this->memcache->expects($this->any())
                  ->method('get')
                  ->will($this->returnValue($memcache_value));
