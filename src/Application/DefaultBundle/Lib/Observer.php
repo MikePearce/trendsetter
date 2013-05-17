@@ -6,6 +6,7 @@ Use Symfony\Component\DependencyInjection\ContainerAware;
 Use Application\DefaultBundle\Lib\Velocity;
 Use Application\DefaultBundle\Lib\Estimates;
 Use Application\DefaultBundle\Lib\Stories;
+Use Application\DefaultBundle\Lib\Fullscreen;
 
 /**
  * Generates the data, huzzah!
@@ -41,6 +42,11 @@ class Observer extends ContainerAware {
         else {
             throw new \Exception('What is this I don\'t even?!');
         }
+    }
+    
+    public function fullscreen() {
+        $fullscreen = new Fullscreen($this->memcached);
+        return $fullscreen->getData();
     }
     
     /**

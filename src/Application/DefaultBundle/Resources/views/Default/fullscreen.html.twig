@@ -81,45 +81,34 @@
      </div>
      <!-- ROW 2 -->
      <div class="row-fluid">
-            <ul class="thumbnails">
-              <li class="span4">
-                <div class="thumbnail">
-                  <div class="caption-top">
-                    <h3>Current velocity</h3>
-                    <p class="super-large">{[deptstats.current_velocity]}</p>
-                  </div>
+        <ul class="thumbnails">
+          <li class="span4">
+            <div class="thumbnail higher">
+              <div class="caption-top">
+                <h3>Most Recent Blog Post</h3>
+                <h4>{[fullscreen.blog.title]}</h4>
+                <p class="left" ng-bind-html-unsafe="fullscreen.blog.description"></p>
+              </div>
+            </div>
+          </li>
+          <li class="span4">
+            <div class="thumbnail higher">
+              <div class="caption-top">
+                  <h3>REMEMBER ME</h3>
+                  <img width="240" src="{[fullscreen.flickr]}" />
+              </div>
+            </div>
+          </li>
+          <li class="span4">
+            <div class="thumbnail higher">
+              <div class="caption-top">
+                <h3>Defect Stats</h3>
+                
+                <p>Stay tuned</p>
                 </div>
-              </li>
-              <li class="span4">
-                <div class="thumbnail">
-                  <div class="caption-top">
-                    <h3>Current Acceptance</h3>
-                    <p class="super-large">{[deptstats.current_acceptance]}<span class="smaller">%</span></p>
-                  </div>
-                </div>
-              </li>
-              <li class="span4">
-                <div class="thumbnail">
-                  <div class="caption-top">
-                    <h3>Team statistics</h3>
-                    <table class="table-condensed margin-left10" width="100%">
-                      <thead>
-                        <tr>
-                            <th class="pull-left">Team</th>
-                            <th>Velocity</th>
-                            <th>Acceptance</th>
-                        <tr>
-                      </thead>
-                      <tr ng-repeat="team in teamstats">
-                        <td class="pull-left">{[team.name]}</td>
-                        <td>{[team.velocity]}</td>
-                        <td>{[team.acceptance]}</td>
-                      </tr>
-                    </table>
-                    </div>
-                </div>
-              </li>    
-          </ul>
+            </div>
+          </li>    
+      </ul>
      </div>
  </div>
   </body>
