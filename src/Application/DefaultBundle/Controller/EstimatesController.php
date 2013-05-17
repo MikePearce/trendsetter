@@ -1,10 +1,7 @@
 <?php
 
 namespace Application\DefaultBundle\Controller;
-
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Application\DefaultBundle\Lib\Estimates;
-use Symfony\Component\HttpFoundation\JsonResponse;
 
 class EstimatesController extends Controller
 {    
