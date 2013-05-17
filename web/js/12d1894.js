@@ -1,26 +1,14 @@
 google.load('visualization', '1', {packages: ['corechart']});
 
-
-function getData(backlogurl) {
-    // Get the json
-    var jsonData = $.ajax({
-            url: "/stories/data" + backlogurl,
-            dataType: "json",
-            async: false
-    }).responseText;
-
-    return jsonData;
-}
-
 function drawVisualization() {
 
     if ($('body').data('datatype') == 'acceptancerate') {
         var title = 'Acceptance Rate';
-        var backlogurl = '/acceptancerate';
+        var backlogurl = '/data/acceptancerate';
     }
     else {
         var title = 'No. of Stories';
-        var backlogurl = '/totalstoriespermonth';
+        var backlogurl = '/data/totalstoriespermonth';
     }
 
 
@@ -50,25 +38,7 @@ function drawVisualization() {
 }
 setTimeout(google.setOnLoadCallback(drawVisualization), 2000);
 
-// Truncate
-angular.module('filters', []).
-    filter('truncate', function () {
-        return function (text, length, end) {
-            if (isNaN(length))
-                length = 10;
- 
-            if (end === undefined)
-                end = "...";
- 
-            if (text.length <= length || text.length - end.length <= length) {
-                return text;
-            }
-            else {
-                return String(text).substring(0, length-end.length) + end;
-            }
- 
-        };
-    });
+
 
 // Angular shizzie
 var storyFilter = angular.module('storyFilter', ['ui.bootstrap', 'filters']).config(function($interpolateProvider){
@@ -78,7 +48,7 @@ var storyFilter = angular.module('storyFilter', ['ui.bootstrap', 'filters']).con
 
 storyFilter.factory('Backlog', function() {
     var Backlog = {};
-    Backlog.stories = angular.fromJson(getData('/stories/'+ $('body').data('backlog')));
+    Backlog.stories = angular.fromJson(getData('/data/stories/'+ $('body').data('backlog')));
     return Backlog;
 });
 
@@ -98,7 +68,7 @@ var BacklogCtrl = function($scope, Backlog) {
     // Modal
     $scope.open = function (storyid) {
         $scope.shouldBeOpen = true;
-        $scope.story = angular.fromJson(getData('/story/' + $('body').data('backlog') + '/' + storyid));
+        $scope.story = angular.fromJson(getData('/data/story/' + $('body').data('backlog') + '/' + storyid));
     };
 
     $scope.close = function () {
