@@ -44,18 +44,15 @@
         "sensio/generator-bundle": "2.2.*",
         "jms/security-extra-bundle": "1.4.*",
         "jms/di-extra-bundle": "1.3.*",
-        
-        "twitter/bootstrap": "2.3.*",
-        "jquery/jquery": "1.9.*",
-
-        "angular/angular": "1.0.5",
 
         "friendsofsymfony/rest-bundle" : "0.11.*",
         "jms/serializer-bundle": "0.11.*",
 
         "guzzle/guzzle":"dev-master",
         "knplabs/knp-menu":"dev-master",
-        "knplabs/knp-menu-bundle":"dev-master"
+        "knplabs/knp-menu-bundle":"dev-master",
+
+        "zendframework/zend-xmlrpc": "2.1.*"
 
 
     },
