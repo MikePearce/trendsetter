@@ -44,6 +44,16 @@ class Observer extends ContainerAware {
         }
     }
     
+    public function getAllTickets() {
+        $trac = new Trac($this->memcached);
+        return $trac->getAllTickets();
+    }
+    
+    public function getTracCurrent() {
+        $trac = new Trac($this->memcached);
+        return $trac->getCurrent();
+    }
+    
     public function fullscreen() {
         $fullscreen = new FullScreen($this->memcached);
         return $fullscreen->getData();
