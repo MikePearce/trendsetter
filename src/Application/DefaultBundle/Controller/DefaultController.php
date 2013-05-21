@@ -7,10 +7,36 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Application\DefaultBundle\Lib\Observer;
 use Application\DefaultBundle\Lib\FullScreen;
 
+use Zend\XmlRpc\Client;
+use Zend\Http\Client AS HTTPClient;
 class DefaultController extends Controller
 {    
     public function indexAction()
-    {        
+    {     
+        $q = "SELECT *, ";
+        $q .=   "id AS ticket, status, priority, owner, ";
+//        $q .=   "DATE(FROM_UNIXTIME(time)) as date_created, summary, type, ";
+//        $q .=   "DATE(FROM_UNIXTIME(changetime)) as changetimes ";
+        $q .= "FROM ticket ";
+//        $q .= "WHERE component in ('shopwindow', 'darwin', 'site2', 'shopwindow api', 'shared library', 'reporting') ";
+//        $q .= "AND DATE(FROM_UNIXTIME(time)) > '2011-01-01 00:00:00' AND type = 'defect' ORDER BY id";
+        
+        // Do this 
+        $httpclient = NEW HTTPClient();
+        $httpclient->setOptions(array('sslverifypeer' => false));
+        $client = new Client(
+            'http://mike.pearce:marmaset@dtrac.affiliatewindow.com/login/xmlrpc',
+            $httpclient
+        );
+        //$result = $client->call('search.performSearch', $q);
+        $result = $client->call('ticket.query', 
+            'max=0&component=shopwindow&component=darwin&component=site2&component=reporting&'.
+            'component=shopwindow%20api&component=shared%20library&'.
+            'type=defect'
+        );
+        var_dump($result);
+       
+        
         return $this->render(
         'ApplicationDefaultBundle:Default:index.html.twig'
         );
