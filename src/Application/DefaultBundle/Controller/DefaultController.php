@@ -5,7 +5,7 @@ namespace Application\DefaultBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Application\DefaultBundle\Lib\Observer;
-use Application\DefaultBundle\Lib\Fullscreen;
+use Application\DefaultBundle\Lib\FullScreen;
 
 class DefaultController extends Controller
 {    
@@ -18,7 +18,7 @@ class DefaultController extends Controller
 
     public function fullscreenAction()
     {       
-        $fullscreen = new Fullscreen($this->get('memcached'));
+        $fullscreen = new FullScreen($this->get('memcached'));
         $fullscreen->getAwinBlog();
         
         return $this->render(
