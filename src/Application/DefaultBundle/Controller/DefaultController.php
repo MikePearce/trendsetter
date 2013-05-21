@@ -13,28 +13,40 @@ class DefaultController extends Controller
 {    
     public function indexAction()
     {     
-        $q = "SELECT *, ";
-        $q .=   "id AS ticket, status, priority, owner, ";
-//        $q .=   "DATE(FROM_UNIXTIME(time)) as date_created, summary, type, ";
-//        $q .=   "DATE(FROM_UNIXTIME(changetime)) as changetimes ";
-        $q .= "FROM ticket ";
-//        $q .= "WHERE component in ('shopwindow', 'darwin', 'site2', 'shopwindow api', 'shared library', 'reporting') ";
-//        $q .= "AND DATE(FROM_UNIXTIME(time)) > '2011-01-01 00:00:00' AND type = 'defect' ORDER BY id";
-        
-        // Do this 
-        $httpclient = NEW HTTPClient();
-        $httpclient->setOptions(array('sslverifypeer' => false));
-        $client = new Client(
-            'http://mike.pearce:marmaset@dtrac.affiliatewindow.com/login/xmlrpc',
-            $httpclient
+        $filename = "/tmp/trendsetter-trac-csv.csv";
+        $handle = fopen($filename, 'w+');
+        fwrite(
+            $handle, 
+            file_get_contents('https://mike.pearce:marmaset@dtrac.affiliatewindow.com/report/65?format=csv&USER=mike.pearce')
         );
-        //$result = $client->call('search.performSearch', $q);
-        $result = $client->call('ticket.query', 
-            'max=0&component=shopwindow&component=darwin&component=site2&component=reporting&'.
-            'component=shopwindow%20api&component=shared%20library&'.
-            'type=defect'
-        );
-        var_dump($result);
+        fclose($handle);
+        $firstRow = FALSE;
+        $new_data = array();
+        $cols = array('ticket', 'status', 'priority', 'owner', 'date_created', 'summary', 'type', 'changetimes');
+        if (($handle = fopen($filename, "r")) !== FALSE) {
+            while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
+                if (!$firstRow) {
+                    $firstRow = TRUE;
+                    continue;
+                }
+                for($i = 0; $i < count($cols); $i++ ) {
+                    $new_data[$data[0]][$cols[$i]] = $data[$i];
+                }
+            }
+            fclose($handle);
+        }
+        var_dump($new_data);
+//        foreach($csv AS $row) {
+//            if (!$firstrow){
+//                $firstrow = $row;
+//            }
+//            else {
+//                foreach($row AS $id => $column) {
+//                    
+//                }
+//            }
+//        }
+//        var_dump($result);
        
         
         return $this->render(
