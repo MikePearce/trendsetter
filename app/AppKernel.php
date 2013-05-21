@@ -20,7 +20,7 @@ class AppKernel extends Kernel
             new JMS\DiExtraBundle\JMSDiExtraBundle($this),
             new JMS\SecurityExtraBundle\JMSSecurityExtraBundle(),
             new Application\DefaultBundle\ApplicationDefaultBundle(),
-            new Mikepearce\EasybacklogApiBundle\MikepearceEasybacklogApiBundle(),
+            new MikePearce\EasybacklogApiBundle\MikePearceEasybacklogApiBundle(),
             new Knp\Bundle\MenuBundle\KnpMenuBundle(),
         );
 

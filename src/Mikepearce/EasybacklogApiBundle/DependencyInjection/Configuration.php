@@ -1,6 +1,6 @@
 <?php
 
-namespace Mikepearce\EasybacklogApiBundle\DependencyInjection;
+namespace MikePearce\EasybacklogApiBundle\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;

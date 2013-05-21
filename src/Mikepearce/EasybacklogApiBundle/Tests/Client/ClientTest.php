@@ -1,7 +1,7 @@
 <?php
 
-namespace Mikepearce\EasybacklogApiBundle\Tests\Controller;
-use Mikepearce\EasybacklogApiBundle\Client\Client;
+namespace  MikePearce\EasybacklogApiBundle\Tests\Controller;
+use MikePearce\EasybacklogApiBundle\Client\Client;
 
 class ClientClientTest extends \Guzzle\Tests\GuzzleTestCase
 {
@@ -46,7 +46,7 @@ class ClientClientTest extends \Guzzle\Tests\GuzzleTestCase
         $this->getMocks();
         $ebclient = $this->ebclient->setBacklog(array('0'))
                                    ->setBacklog('123');
-        $this->assertInstanceOf('Mikepearce\EasybacklogApiBundle\Client\Client', $ebclient);
+        $this->assertInstanceOf('MikePearce\EasybacklogApiBundle\Client\Client', $ebclient);
     }
 
     public function testGetJsonFromApiReturnsJson() {

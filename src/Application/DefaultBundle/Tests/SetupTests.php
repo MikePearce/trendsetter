@@ -4,7 +4,7 @@ namespace Application\DefaultBundle\Tests;
 use Application\DefaultBundle\Lib\Stories;
 use Application\DefaultBundle\Lib\Estimates;
 use Application\DefaultBundle\Lib\Velocity;
-use Mikepearce\EasybacklogApiBundle\Client\Client;
+use MikePearce\EasybacklogApiBundle\Client\Client;
 
 class SetupTests extends \Guzzle\Tests\GuzzleTestCase
 {
