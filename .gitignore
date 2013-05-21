@@ -19,3 +19,4 @@ backups/*
 .idea
 /nbproject/private/nbproject/
 nbproject
+deploy.mike.rb
