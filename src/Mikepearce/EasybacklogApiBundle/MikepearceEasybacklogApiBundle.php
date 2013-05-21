@@ -1,9 +1,9 @@
 <?php
 
-namespace Mikepearce\EasybacklogApiBundle;
+namespace MikePearce\EasybacklogApiBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
-class MikepearceEasybacklogApiBundle extends Bundle
+class MikePearceEasybacklogApiBundle extends Bundle
 {
 }

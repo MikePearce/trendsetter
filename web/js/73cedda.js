@@ -39,10 +39,12 @@ homePage.factory('Stats', function() {
     var Stats = {};
     Stats.teamstats = angular.fromJson(getData('/data/teamstats'));
     Stats.deptstats = angular.fromJson(getData('/data/deptstats'));
+    Stats.fullscreen = angular.fromJson(getData('/data/fullscreen'))
     return Stats;
 });
 
 var HomepageCtrl = function($scope, Stats) {    
     $scope.deptstats = Stats.deptstats;
     $scope.teamstats = Stats.teamstats;
+    $scope.fullscreen = Stats.fullscreen;
 }

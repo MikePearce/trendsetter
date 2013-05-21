@@ -26,7 +26,13 @@ span.smaller {
 table.margin-left10 {
     margin-left: 10px;
 }
-
+div.higher {
+    height: 310px;
+}
+.left {
+    text-align: left;
+    padding: 10px;
+}
 /*!
  * Bootstrap Responsive v2.3.1
  *
