@@ -6,7 +6,7 @@ Use Symfony\Component\DependencyInjection\ContainerAware;
 Use Application\DefaultBundle\Lib\Velocity;
 Use Application\DefaultBundle\Lib\Estimates;
 Use Application\DefaultBundle\Lib\Stories;
-Use Application\DefaultBundle\Lib\Fullscreen;
+Use Application\DefaultBundle\Lib\FullScreen;
 
 /**
  * Generates the data, huzzah!
