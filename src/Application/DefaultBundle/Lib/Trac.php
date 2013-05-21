@@ -38,6 +38,17 @@ class Trac {
         
     }
     
+    /**
+     * 
+     * @return array
+     */
+    public function getLastThisMonth() {
+       $tracData = $this->getTracData();
+       $this = array_pop($tracData);
+       $last = array_pop($tracData);
+       return array('lastMonth' => count($last), 'thisMonth' => count($this));
+    }
+    
     private function getTracData() {
          // Get it from memcache and see if it's older than 24 hours
         $json = $this->memcached->get(md5('ticketdata'));

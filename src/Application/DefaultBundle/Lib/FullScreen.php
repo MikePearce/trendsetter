@@ -1,6 +1,8 @@
 <?php
 namespace Application\DefaultBundle\Lib;
 
+use Application\DefaultBundle\Lib\Trac;
+
 /**
  *
  * @author Mike Pearce <mike@mikepearce.net>
@@ -16,8 +18,14 @@ class FullScreen {
     public function getData() {
         return array(
             'blog'      => $this->getAwinBlog(),
-            'flickr'    => $this->getFlickr()
+            'flickr'    => $this->getFlickr(),
+            'tickets'   => $this->getTickets()
         );
+    }
+    
+    private function getTickets() {
+        $trac = new Trac($this->memcached);
+        return $trac->getLastThisMonth();
     }
     
     public function getAwinBlog() {
