@@ -16,6 +16,14 @@ class Trac {
         $this->memcached = $memcached;
     }
     
+    private function getTicketByPriority() {
+        
+    }
+    
+    private function getTicketByAlivePeriod() {
+        
+    }
+    
     /**
      * Get the current top level stats
      * @return array
@@ -44,9 +52,14 @@ class Trac {
      */
     public function getLastThisMonth() {
        $tracData = $this->getTracData();
-       $this = array_pop($tracData);
-       $last = array_pop($tracData);
-       return array('lastMonth' => count($last), 'thisMonth' => count($this));
+       
+       // Get rid of the date
+       array_pop($tracData);
+       
+       // Then get the stats
+       $thisMonth = array_pop($tracData);
+       $lastMonth = array_pop($tracData);
+       return array('lastMonth' => count($lastMonth), 'thisMonth' => count($thisMonth));
     }
     
     private function getTracData() {

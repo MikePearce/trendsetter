@@ -11,6 +11,10 @@ ul.submenu li {
     font-size: 10em;
     padding: 40px;
 }
+.medium-large {
+    font-size: 7em;
+    padding: 40px;
+}
 span.smaller {
     font-size: 0.4em;
 }
