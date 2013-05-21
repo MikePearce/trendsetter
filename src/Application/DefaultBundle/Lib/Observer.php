@@ -44,7 +44,12 @@ class Observer extends ContainerAware {
         }
     }
     
-    public function getAllTickets() {
+    public function defectspriority() {
+        $trac = new Trac($this->memcached);
+        return $trac->getTicketByPriority();
+    }
+    
+    public function defects() {
         $trac = new Trac($this->memcached);
         return $trac->getAllTickets();
     }

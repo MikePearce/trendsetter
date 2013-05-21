@@ -16,8 +16,47 @@ class Trac {
         $this->memcached = $memcached;
     }
     
-    private function getTicketByPriority() {
+    public function getTicketByPriority() {
+        $priorityTypes = array(
+            'Year/Month'    => 'string', 
+            'Critical'      => 'number',
+            'Major'         => 'number',
+            'Minor'         => 'number',
+            'Blocker'       => 'number',
+            'Trivial'       => 'number',
+            'Waiting'       => 'number',
+            'Nicetohave'    => 'number',
+        );
+        $googleVis = new Googlevis();
+        $columns = $googleVis->createColumns($priorityTypes);
         
+
+        $tracData = $this->getTracData();
+        $defects = array();
+        // Get rid of year/month
+        array_shift($priorityTypes);
+        foreach($tracData AS $date => $tickets) {
+            
+            // Setup the index
+            $defects[$date] = array();
+            foreach ($priorityTypes AS $label => $type) {
+                $defects[$date][strtolower($label)] = 0;
+            }
+            
+            // Pump in teh data
+            foreach($tickets AS $ticket) {
+                $defects[$date][strtolower($ticket['priority'])] += 1;
+            }
+        }
+        
+        // Now, create the google vis
+        $rows = array();
+        foreach($defects AS $date => $priority) {
+            $rows[] = $googleVis->createDataRow($date, $priority);
+        }
+        //var_dump($defects);
+        return array('cols' => $columns, 'rows' => $rows);
+//        return json_decode('{"cols":[{"id":"","label":"Year","pattern":"","type":"string"},{"id":"","label":"Sales","pattern":"","type":"number"},{"id":"","label":"Expenses","pattern":"","type":"number"}],"rows":[{"c":[{"v":"2004","f":null},{"v":1000,"f":null},{"v":400,"f":null}]},{"c":[{"v":"2005","f":null},{"v":1170,"f":null},{"v":460,"f":null}]},{"c":[{"v":"2006","f":null},{"v":660,"f":null},{"v":1120,"f":null}]},{"c":[{"v":"2007","f":null},{"v":1030,"f":null},{"v":540,"f":null}]}],"p":null}', true);
     }
     
     private function getTicketByAlivePeriod() {
@@ -35,13 +74,13 @@ class Trac {
         );
         $rows = array();
         $tracData = $this->getTracData();
+
         foreach($tracData AS $date => $tickets) {
             $rows[] = $googleVis->createDataRow(
                   $date,
                   count($tickets)
                 );
         }
-        
         return array('cols' => $columns, 'rows' => $rows);
         
     }
@@ -52,10 +91,7 @@ class Trac {
      */
     public function getLastThisMonth() {
        $tracData = $this->getTracData();
-       
-       // Get rid of the date
-       array_pop($tracData);
-       
+      
        // Then get the stats
        $thisMonth = array_pop($tracData);
        $lastMonth = array_pop($tracData);
@@ -73,6 +109,8 @@ class Trac {
             echo 'From File';
         }
         
+        // Remove the date.
+        array_pop($data);
         return $data;
     }
     

@@ -1,0 +1,26 @@
+{% extends 'ApplicationDefaultBundle::layout.html.twig' %}
+{% block body %}
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    {% if backlog is defined %}
+        <script type="text/javascript">
+            $(document).ready(function() {
+                $('body').data('backlog', "{{backlog}}");
+            });
+        </script>
+    {% endif %}
+    {% javascripts '@ApplicationDefaultBundle/Resources/public/js/defects.js' %}
+        <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+    {% set menu = knp_menu_get('ApplicationDefaultBundle:Builder:mainMenu', ['Estimates'], {'submenu': 'true' }) %}
+    {{ knp_menu_render(menu) }}
+    
+
+    <h1>Defects</h1>
+    <h2>Total defects raised per month</h2>
+    <div id="chart_div" style="width: 950px; height: 500px;"></div>
+    <h2>Defects by priority</h2>
+    <div id="chart_div_p" style="width: 950px; height: 500px;"></div>
+    <h2>Defects by alive time</h2>
+    <div id="chart_div_a" style="width: 950px; height: 500px;"></div>
+
+{% endblock %}

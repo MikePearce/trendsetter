@@ -77,6 +77,8 @@ class Builder extends ContainerAware
         $menu['Velocity']->addChild('Prime', array('uri' => '/velocity/team/prime'));
         $menu['Velocity']->addChild('Raptor', array('uri' => '/velocity/team/raptor'));                
 
+        // Defects
+        $menu->addChild('Defects', array('uri' => '/defects'));
         //Fullscreen
         $menu->addChild('Fullscreen!', array('uri' => '/fullscreen'));
         

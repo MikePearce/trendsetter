@@ -12,7 +12,6 @@ class DefaultController extends Controller
 {    
     public function indexAction()
     {   
-        $trac = new Trac($this->get('memcached'));
         return $this->render(
         'ApplicationDefaultBundle:Default:index.html.twig'
         );
