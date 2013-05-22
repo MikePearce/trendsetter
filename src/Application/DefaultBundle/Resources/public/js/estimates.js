@@ -6,7 +6,6 @@ function drawVisualization() {
         : '/data/backlogestimatespread'
     );
 
-    console.log(backlogurl);
     // Get the json
     var jsonData = getData(backlogurl);
 
