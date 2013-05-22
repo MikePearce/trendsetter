@@ -58,7 +58,7 @@ class Estimates {
                 $aggEstimates[$year][$monthNo] = $estimates;
             }
         }
-
+        ksort($aggEstimates);
         return $aggEstimates;
     }    
 
