@@ -16,6 +16,10 @@ class Trac {
         $this->memcached = $memcached;
     }
     
+    /**
+     *  Get all the counts of tickets by priority.
+     * @return array
+     */
     public function getTicketByPriority() {
         $priorityTypes = array(
             'Year/Month'    => 'string', 
@@ -54,13 +58,8 @@ class Trac {
         foreach($defects AS $date => $priority) {
             $rows[] = $googleVis->createDataRow($date, $priority);
         }
-        //var_dump($defects);
-        return array('cols' => $columns, 'rows' => $rows);
-//        return json_decode('{"cols":[{"id":"","label":"Year","pattern":"","type":"string"},{"id":"","label":"Sales","pattern":"","type":"number"},{"id":"","label":"Expenses","pattern":"","type":"number"}],"rows":[{"c":[{"v":"2004","f":null},{"v":1000,"f":null},{"v":400,"f":null}]},{"c":[{"v":"2005","f":null},{"v":1170,"f":null},{"v":460,"f":null}]},{"c":[{"v":"2006","f":null},{"v":660,"f":null},{"v":1120,"f":null}]},{"c":[{"v":"2007","f":null},{"v":1030,"f":null},{"v":540,"f":null}]}],"p":null}', true);
-    }
-    
-    private function getTicketByAlivePeriod() {
         
+        return array('cols' => $columns, 'rows' => $rows);
     }
     
     /**
@@ -86,7 +85,7 @@ class Trac {
     }
     
     /**
-     * 
+     * Get last months and this months ticket score
      * @return array
      */
     public function getLastThisMonth() {
@@ -106,7 +105,6 @@ class Trac {
             $data = $this->getRawTracData();
             $data['date'] = time();
             $this->memcached->set(md5('ticketdata'), json_encode($data));
-            echo 'From File';
         }
         
         // Remove the date.
