@@ -21,12 +21,6 @@ function drawVisualization() {
     var data_p = new google.visualization.DataTable(jsonData_p);
     var chart_p = new google.visualization.LineChart(document.getElementById('chart_div_p'));
     chart_p.draw(data_p);
-    
-    // By Alive
-    var jsonData_a = getData('/data/defects');
-    var data_a = new google.visualization.DataTable(jsonData_a);
-    var chart_a = new google.visualization.ComboChart(document.getElementById('chart_div_a'));
-    chart_a.draw(data_a, options);
 
 }
 setTimeout(google.setOnLoadCallback(drawVisualization), 2000);

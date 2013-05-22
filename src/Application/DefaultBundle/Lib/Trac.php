@@ -54,13 +54,8 @@ class Trac {
         foreach($defects AS $date => $priority) {
             $rows[] = $googleVis->createDataRow($date, $priority);
         }
-        //var_dump($defects);
-        return array('cols' => $columns, 'rows' => $rows);
-//        return json_decode('{"cols":[{"id":"","label":"Year","pattern":"","type":"string"},{"id":"","label":"Sales","pattern":"","type":"number"},{"id":"","label":"Expenses","pattern":"","type":"number"}],"rows":[{"c":[{"v":"2004","f":null},{"v":1000,"f":null},{"v":400,"f":null}]},{"c":[{"v":"2005","f":null},{"v":1170,"f":null},{"v":460,"f":null}]},{"c":[{"v":"2006","f":null},{"v":660,"f":null},{"v":1120,"f":null}]},{"c":[{"v":"2007","f":null},{"v":1030,"f":null},{"v":540,"f":null}]}],"p":null}', true);
-    }
-    
-    private function getTicketByAlivePeriod() {
         
+        return array('cols' => $columns, 'rows' => $rows);
     }
     
     /**
@@ -122,12 +117,12 @@ class Trac {
     private function getRawTracData() {
         
         $filename = "/tmp/trendsetter-trac-csv.csv";
-//        $handle = fopen($filename, 'w+');
-//        fwrite(
-//            $handle, 
-//            file_get_contents('https://mike.pearce:marmaset@dtrac.affiliatewindow.com/report/65?format=csv&USER=mike.pearce')
-//        );
-//        fclose($handle);
+        $handle = fopen($filename, 'w+');
+        fwrite(
+            $handle, 
+            file_get_contents('https://mike.pearce:marmaset@dtrac.affiliatewindow.com/report/65?format=csv&USER=mike.pearce')
+        );
+        fclose($handle);
         $firstRow = FALSE;
         $new_data = array();
         $cols = array(
