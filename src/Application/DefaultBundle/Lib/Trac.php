@@ -122,12 +122,12 @@ class Trac {
     private function getRawTracData() {
         
         $filename = "/tmp/trendsetter-trac-csv.csv";
-//        $handle = fopen($filename, 'w+');
-//        fwrite(
-//            $handle, 
-//            file_get_contents('https://mike.pearce:marmaset@dtrac.affiliatewindow.com/report/65?format=csv&USER=mike.pearce')
-//        );
-//        fclose($handle);
+        $handle = fopen($filename, 'w+');
+        fwrite(
+            $handle, 
+            file_get_contents('https://mike.pearce:marmaset@dtrac.affiliatewindow.com/report/65?format=csv&USER=mike.pearce')
+        );
+        fclose($handle);
         $firstRow = FALSE;
         $new_data = array();
         $cols = array(
