@@ -19,6 +19,12 @@
 
 
     <h1>Total stories created per month{% if teamname is defined %}: {{teamname}} {% endif %}</h2>
+    <p>
+        We can see how many stories are created per month. If we see a trend of 
+        the number of stories rising, then we'll find ourselves in an untenable 
+        situation of <em>always</em> having more stories on the backlog than 
+        we can ever hope to complete.
+    </p>
     <div id="chart_div" style="width: 950px; height: 500px;"></div>
     {% if storydata is defined %}
     <h3>The Stories</h3>

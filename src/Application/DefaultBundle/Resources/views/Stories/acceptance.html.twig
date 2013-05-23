@@ -17,5 +17,11 @@
     {{ knp_menu_render(menu) }}
 
     <h1>Acceptance Rate {% if teamname is defined %} for team {{teamname}} {% endif %}</h1>
+    <p>
+        The acceptance rate is the percentage of story points in a sprint that 
+        were 'accepted' by the product owner. For example, if we commit to 20 points 
+        made of four size five stories, then the product owner accepts 15 points as completed 
+        (three stories), then we'll only have a 75% acceptance rate for that sprint.
+    </p>
     <div id="chart_div" style="width: 950px; height: 500px;"></div>
 {% endblock %}

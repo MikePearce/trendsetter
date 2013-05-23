@@ -15,5 +15,10 @@
     {{ knp_menu_render(menu) }}
 
     <h1>Velocity for {% if teamname is defined %} team {{teamname}} {% else %} Department{% endif %}</h1>
+    <p>
+        The velocity charts show your long-term velocity. Your average over
+        all the sprints. This should be updated to show a rolling velocity
+        of the last six sprints to be a better reflection of how you're doing.
+    </p>
     <div id="chart_div" style="width: 950px; height: 500px;"></div>
 {% endblock %}

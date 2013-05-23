@@ -16,6 +16,14 @@
     
 
     <h1>Spread of estimate sizes per month{% if teamname is defined %}: {{teamname}} {% endif %}</h1>
+    <p>
+        This data shows you how we're estimating. It allows us to see if we've
+        got many more (or less) types of estimate than others. If, for example,
+         we see a lot of size 13 estimates, we know that we're not doing well 
+         enough with breaking them down. Also, if we see the number of size 8 stories
+         increasing over time, then perhaps we're getting stuck in a rut and 
+         beginning to become lazy about estimating. Remember, RAE's...
+    </p>
     <div id="chart_div" style="width: 950px; height: 500px;"></div>
 
 {% endblock %}
